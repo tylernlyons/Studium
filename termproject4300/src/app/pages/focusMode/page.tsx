@@ -11,7 +11,7 @@ export default function StudySession() {
   const searchParams = useSearchParams();
   const [studyDuration, setStudyDuration] = useState(0);
   const [sessionActive, setSessionActive] = useState(true);
-  
+
 
   useEffect(() => {
     const duration = searchParams.get('duration');
@@ -37,7 +37,7 @@ export default function StudySession() {
         <h1>Your study session is complete!</h1>
       )}
 
-      
+
     </div>
   );
 }
