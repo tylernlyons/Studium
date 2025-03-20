@@ -1,4 +1,4 @@
-const createDefinition = async (term: string): Promise<string> => {
+const CreateDefinition = async (term: string): Promise<string> => {
   try {
       const APIBody = {
           model: "gpt-4o-mini",
@@ -27,4 +27,4 @@ const createDefinition = async (term: string): Promise<string> => {
   }
 };
 
-export default createDefinition;
+export default CreateDefinition;

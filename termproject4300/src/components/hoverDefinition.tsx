@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import createDefinition from "./createDefinition";
+import CreateDefinition from "./CreateDefinition";
 
 const HoverDefinition = () => {
   const [hoverDef, setHoverDef] = useState<{ word: string; definition: string; x: number; y: number } | null>(null);
@@ -8,7 +8,7 @@ const HoverDefinition = () => {
     const handleMouseOver = async (event: MouseEvent) => {
       const selection = window.getSelection()?.toString().trim();
       if (selection) {
-        const definition = await createDefinition(selection);
+        const definition = await CreateDefinition(selection);
         setHoverDef({
           word: selection,
           definition,

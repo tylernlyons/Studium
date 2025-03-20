@@ -3,9 +3,9 @@ import { useSearchParams } from 'next/navigation';
 import usePreventExit from '../../../hooks/usePreventExit';
 import preventBackNavigation from '../../../hooks/usePreventBackNav';
 import { useState, useEffect } from 'react';
-import StudyTimer from '@/components/studyTimer';
-import StudySet from '@/components/studySet';
-import HoverDefinition from '@/components/hoverDefinition';
+import StudyTimer from '@/components/StudyTimer';
+import StudySet from '@/components/StudySet';
+import HoverDefinition from '@/components/HoverDefinition';
 
 export default function StudySession() {
   const searchParams = useSearchParams();

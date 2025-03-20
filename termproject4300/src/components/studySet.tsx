@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import createDefinition from '../../src/components/createDefinition';
+import CreateDefinition from "./CreateDefinition";
 
 interface Term {
     term: string;
@@ -14,7 +14,7 @@ const StudySet = () => {
     const addTerm = async () => {
         if (newTerm.trim()) {
             setLoading(true);
-            const definition = await createDefinition(newTerm);
+            const definition = await CreateDefinition(newTerm);
             setTerms([...terms, { term: newTerm, definition }]);
             setNewTerm("");
             setLoading(false);
