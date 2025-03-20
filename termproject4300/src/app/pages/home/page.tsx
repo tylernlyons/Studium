@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
   const [durationInput, setDurationInput] = useState("");
   const [studyDuration, setStudyDuration] = useState(0);
 
- 
+
   const handleSetDuration = () => {
     const duration = parseInt(durationInput);
     if (isNaN(duration) || duration <= 0) {
@@ -18,7 +18,7 @@ export default function Home() {
     }
   };
 
-  
+
   const getFocusModeUrl = () => {
     if (studyDuration > 0) {
       return `/pages/focusMode?duration=${studyDuration}`;
