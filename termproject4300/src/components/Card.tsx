@@ -1,8 +1,10 @@
 import { useState, useRef } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface CardProps {
     title: string;
     onTitleChange: (newTitle: string) => void;
+
     children: React.ReactNode;
 }
 
@@ -10,6 +12,7 @@ const Card = ({ title, onTitleChange, children }: CardProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
+
 
     const toggleCollapse = () => {
         if (!isEditing) {
@@ -66,7 +69,7 @@ const Card = ({ title, onTitleChange, children }: CardProps) => {
                     className="ml-2 p-1 cursor-pointer"
                     aria-label={isCollapsed ? "Expand" : "Collapse"}
                 >
-                    {isCollapsed ? <>▼</> : <>▲</>}
+                    {isCollapsed ? <><ChevronDown size={20} /></> : <><ChevronUp size={20} /></>}
                 </button>
             </div>
             {!isCollapsed && <div className="p-4">{children}</div>}
