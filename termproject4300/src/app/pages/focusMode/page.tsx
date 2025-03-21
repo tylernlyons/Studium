@@ -1,15 +1,13 @@
 'use client';
-import { useSearchParams } from 'next/navigation';
 import usePreventExit from '../../../hooks/usePreventExit';
 import preventBackNavigation from '../../../hooks/usePreventBackNav';
-import { useState, useEffect } from 'react';
 import StudyTimer from '@/components/StudyTimer';
-import StudySet from '@/components/StudySet';
+import StudySets from '@/components/StudySets';
 import HoverDefinition from '@/components/HoverDefinition';
 
+
 export default function StudySession() {
-  const searchParams = useSearchParams();
-  const [sessionActive, setSessionActive] = useState(true);
+
 
   usePreventExit();
   preventBackNavigation();
@@ -18,7 +16,7 @@ export default function StudySession() {
     <div className="relative">
         <>
           <StudyTimer />
-          <StudySet />
+          <StudySets />
           <HoverDefinition />
         </>
     </div>
