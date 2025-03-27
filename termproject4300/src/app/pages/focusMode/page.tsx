@@ -1,6 +1,6 @@
 'use client';
-import usePreventExit from '../../../hooks/usePreventExit';
-import preventBackNavigation from '../../../hooks/usePreventBackNav';
+import usePreventExit from '@/hooks/usePreventExit';
+import preventBackNavigation from '@/hooks/usePreventBackNav';
 import StudyTimer from '@/components/StudyTimer';
 import StudySets from '@/components/StudySets';
 import HoverDefinition from '@/components/HoverDefinition';
