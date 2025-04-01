@@ -30,8 +30,17 @@ const StudySet = () => {
         setTerms(updatedTerms);
     };
 
+    const handleDeleteSet = () => {
+        setCardTitle("My Study Set");
+        setTerms([]);
+    };
+
     return (
-        <Card title={cardTitle} onTitleChange={setCardTitle}>
+        <Card 
+            title={cardTitle} 
+            onTitleChange={setCardTitle} 
+            onDelete={handleDeleteSet}
+        >
             <div className="max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg">
 
                 {showFlashcards ? (
