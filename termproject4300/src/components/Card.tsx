@@ -2,15 +2,20 @@ import { useState, useRef } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface CardProps {
-    title: string;
-    onTitleChange: (newTitle: string) => void;
-    children: React.ReactNode;
-    onDelete: (title: string) => void;
+    title?: string;
+    onTitleChange?: (newTitle: string) => void;
+    children?: React.ReactNode;
+    onDelete?: (title: string) => void;
 }
 
 const subjects = ["Math", "Science", "History", "English", "Art"];
 
-const Card = ({ title, onTitleChange, children, onDelete }: CardProps) => {
+const Card = ({ 
+    title = "Untitled", 
+    onTitleChange = () => {}, 
+    children = null, 
+    onDelete = () => {} 
+}: CardProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selectedSubject, setSelectedSubject] = useState<string>(subjects[0]);
@@ -91,7 +96,7 @@ const Card = ({ title, onTitleChange, children, onDelete }: CardProps) => {
                         className="ml-2 p-1 cursor-pointer"
                         aria-label={isCollapsed ? "Expand" : "Collapse"}
                     >
-                        {isCollapsed ? <><ChevronDown size={20} /></> : <><ChevronUp size={20} /></>}
+                        {isCollapsed ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
                     </button>
                 </div>
             </div>
