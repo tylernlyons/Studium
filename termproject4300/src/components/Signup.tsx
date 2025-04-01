@@ -2,12 +2,11 @@
 import { useState } from 'react';
 import Card from './Card';
 
-export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, username: string, email: string, password: string, imageUrl: string }) => void }) {
+export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, username: string, email: string, password: string}) => void }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -19,7 +18,7 @@ export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, 
     }
 
     setError('');
-    onSubmit({ name, username, email, password, imageUrl });
+    onSubmit({ name, username, email, password});
   };
 
   return (
