@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Card from './Card';
 
-export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, username: string, email: string, password: string}) => void }) {
+export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, username: string, email: string, password: string }) => void }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, 
     }
 
     setError('');
-    onSubmit({ name, username, email, password});
+    onSubmit({ name, username, email, password });
   };
 
   return (
