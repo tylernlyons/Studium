@@ -41,13 +41,6 @@ export default function Home() {
         <button onClick={handleSetDuration}>Set Duration</button>
       </div>
 
-      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <h3>Untracked study session:</h3>
-        <Link href={'/pages/focusMode'}>
-          <button>Start Study Session</button>
-        </Link>
-      </div>
-
       {studyDuration > 0 && (
         <div>
           <h3>Your study session will last for {studyDuration} minute(s)</h3>
@@ -56,6 +49,12 @@ export default function Home() {
           </Link>
         </div>
       )}
+      <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <h3>Untracked study session:</h3>
+        <Link href={'/pages/focusMode'}>
+          <button>Start Study Session</button>
+        </Link>
+      </div>
     </div>
   );
 }
