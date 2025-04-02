@@ -17,7 +17,7 @@ export interface UserProps {
 
 export default function User({ user }: UserProps) {
   return (
-    <Card>
+    <div>
       <Image
         src={user.imageUrl}
         alt={`${user.name}'s profile picture`}
@@ -30,6 +30,6 @@ export default function User({ user }: UserProps) {
         <p>Username: {user.username}</p>
         <p>Email: {user.email}</p>
       </div>
-    </Card>
+    </div>
   );
 }
