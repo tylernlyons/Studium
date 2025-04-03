@@ -5,20 +5,30 @@ nav {
 .name-login-container {
     display: flex;
     justify-content: space-between;
-    padding: 1em;
+    margin: 0 1em 0 1em;
+    
 }
 
 .nav-items {
     display: flex;
     align-items: center;
     padding: 1em;
+    margin: 1em;
     border-radius: var(--radius-md);
+    
 
     & button {
+        background-color: #1b2d48;
         &:hover {
             @media (hover: hover) {
-                background-color: #1b2d48;
+                background-color: #3c649f;
             }
         }
     }
+}
+
+.span {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
+    font-weight: 600;
 }
