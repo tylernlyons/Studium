@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import connectMongoDB from "../../../../config/mongodb";
 
 export default function Home() {
   const [durationInput, setDurationInput] = useState("");
   const [studyDuration, setStudyDuration] = useState(0);
-  connectMongoDB();
 
 
   const handleSetDuration = () => {
