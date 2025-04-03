@@ -3,9 +3,14 @@ import "./SplashPage.css"
 
 export default function RootPage() {
   return (
-  <div className="splash-container">
-    <h1>This is the splash page. Log in to begin study session.</h1>
-    <video src="/videos/splash.mp4" autoPlay loop muted></video>
-  </div>
+    <div className="splash-container">
+      <div className="intro">
+        <h1>STUDIUM</h1>
+        <p className="p">A distraction-free study platform with a built-in lockdown mode, AI-powered assistance, and customizable flashcards. Stay focused, track your sessions, and power through your studies!</p>
+      </div>
+      <div>
+
+      </div>
+    </div>
   )
 }

@@ -9,17 +9,20 @@ video {
 .splash-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: 100%;
     width: 100%;
     object-fit: contain;
-    font-family: "Ubuntu", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+
+}
+
+.intro {
+    background: rgb(71, 121, 196);
+    background: linear-gradient(0deg, rgba(71, 121, 196, 1) 0%, rgba(2, 0, 36, 1) 100%, rgba(66, 66, 68, 1) 100%);
+    padding: 3em 2em 3em 2em;
 }
 
 h1 {
-    margin: 100px;
+    padding: 0 0 1em 0;
     font-size: 2em;
 
 }
