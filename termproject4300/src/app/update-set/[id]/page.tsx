@@ -59,6 +59,30 @@ export default function UpdateStudySet() {
     }
   };
 
+  const handleDeleteTerm = async (termToDelete: string) => {
+    try {
+      const res = await fetch(`/api/studysets/${id}/terms`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ term: termToDelete }),
+      });
+  
+      if (res.ok) {
+        setStudySet((prev) => ({
+          ...prev,
+          terms: prev.terms.filter((t) => t.term !== termToDelete),
+        }));
+      } else {
+        console.error('Failed to delete term');
+      }
+    } catch (error) {
+      console.error('Error deleting term:', error);
+    }
+  };
+  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -117,13 +141,21 @@ export default function UpdateStudySet() {
             </button>
           </div>
 
-          <ul>
-            {studySet.terms.map((t, i) => (
-              <li key={i}>
-                <strong>{t.term}</strong>: {t.definition}
-              </li>
-            ))}
-          </ul>
+          {studySet.terms.map((term, index) => (
+            <div key={index} className="flex items-center justify-between p-2 border rounded mb-2">
+              <div>
+                <p className="font-semibold">{term.term}</p>
+                <p className="text-sm text-gray-600">{term.definition}</p>
+              </div>
+              <button
+                onClick={() => handleDeleteTerm(term.term)}
+                className="text-red-500 hover:text-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+
 
           <button
             type="submit"
