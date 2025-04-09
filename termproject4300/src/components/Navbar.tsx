@@ -19,8 +19,13 @@ const Navbar = () => {
 
             <Link href="/" className="flex items-center gap-2 hover:opacity-90">
               <div className="flex items-center bg-gray-800 p-2 rounded-md shadow-md">
-                <img className="size-10" src="../images/logobg_studium.png" alt="Studium logo" />
-                <span className='text-white text-xl font-bold ml-2'>Studium</span>
+                <Image
+                  className="logo"
+                  src="/images/logobg_studium.png"
+                  alt="Studium logo"
+                  width={75}
+                  height={75}
+                />
               </div>
               </Link>
               

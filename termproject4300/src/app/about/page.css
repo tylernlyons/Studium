@@ -1,0 +1,12 @@
+.highlight {
+    font-weight: bold;
+    color: #D9F0FF;
+}
+
+.feature-heading {
+    font-weight: bold;
+    font-size: 1rem;
+    color:#D9F0FF;
+    text-decoration: underline;
+    margin-bottom: 0.25rem;
+}
