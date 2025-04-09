@@ -1,7 +1,9 @@
 import "./SplashPage.css"
+import connectMongoDB from "../../config/mongodb";
 //unauthorized home page with about, welcome, etc.
 
 export default function RootPage() {
+  connectMongoDB();
   return (
     <div className="splash-container">
       <div className="intro">

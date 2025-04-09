@@ -6,8 +6,8 @@ export interface ITerm extends Document {
 }
 
 const TermSchema = new Schema<ITerm>({
-    term: { type: String, required: true},
-    definition: { type: String, required: true}
+    term: { type: String, required: true },
+    definition: { type: String, required: true }
 });
 
 export default mongoose.models.Term || mongoose.model<ITerm>("Term", TermSchema);

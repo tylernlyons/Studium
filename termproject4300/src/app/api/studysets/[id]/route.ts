@@ -1,5 +1,5 @@
 import connectMongoDB from "../../../../../config/mongodb";
-import StudySet from "@/app/models/studysetSchema";
+import StudySet from "@/models/studysetSchema";
 import { NextResponse, NextRequest } from "next/server";
 
 interface RouteParams {
@@ -7,10 +7,10 @@ interface RouteParams {
 }
 
 export async function PUT(request: NextRequest, { params }: RouteParams) {
-    const { id } = await params;
-    const { title, terms } = await request.json();
+    const { id } = params;
+    const { title, terms, url } = await request.json();
     await connectMongoDB();
-    const updatedSet = await StudySet.findByIdAndUpdate(id, { title, terms });
+    const updatedSet = await StudySet.findByIdAndUpdate(id, { title, terms, url }, { new: true });
     return NextResponse.json({ updatedSet }, { status: 200 });
 }
 
@@ -24,5 +24,5 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
     const { id } = params;
     await StudySet.findByIdAndDelete(id);
-    
-  }
+
+}
