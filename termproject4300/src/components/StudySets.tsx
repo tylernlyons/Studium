@@ -1,29 +1,53 @@
-import { useState } from "react";
-import StudySet from "./StudySet";
-import { Plus } from "lucide-react"; 
+'use client';
 
-const StudySets = () => {
-    const [studySets, setStudySets] = useState([<StudySet key={0} />]);
+import { useState, useEffect } from "react";
+import StudySet from "@/components/StudySet";
+import Link from "next/link";
+import Card from "./Card";
+import { Plus } from "lucide-react";
+import { StudySetData } from "@/components/StudySetForm";
 
-    const addStudySet = () => {
-        setStudySets([...studySets, <StudySet key={studySets.length} />]);
-    };
+export default function StudySetsPage() {
+    const [sets, setSets] = useState<StudySetData[]>([]);
+
+    useEffect(() => {
+        const fetchSets = async () => {
+            try {
+                const response = await fetch('/api/studysets');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                setSets(data.studySets)
+            } catch (error) {
+                console.log('Error from ShowItemList:', error);
+            }
+        };
+        fetchSets();
+    }, []);
 
     return (
-        <div className="min-h-screen bg-gray-100 p-8">
-            <div className="flex flex-wrap gap-4 justify-center">
-                {studySets}
-                <button
-                    onClick={addStudySet}
-                    className="bg-green-500 text-white p-4 rounded-lg shadow-md flex items-center hover:bg-green-600 transition cursor-pointer"
-                >
-                    <Plus className="mr-2" />
-                    Add Study Set
-                </button>
-                
+        <div className="p-8 bg-gray-100 min-h-screen">
+            <div className="max-w-3xl mx-auto mb-8">
+                {sets && sets.length === 0 ? (
+                    <p>No study sets available</p>
+                ) : (
+                    <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+                        {sets.map((set, k) => (
+                            <StudySet set={set} key={k} />
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Card className="flex flex-col items-center justify-center p-8 hover:shadow-lg transition">
+                    <Plus size={32} className="text-purple-600" />
+                    <Link href="/create-set" className="mt-2 text-purple-600 font-medium hover:underline">
+                        Create New Set
+                    </Link>
+                </Card>
             </div>
         </div>
     );
-};
-
-export default StudySets;
+}
