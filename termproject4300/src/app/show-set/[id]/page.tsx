@@ -70,19 +70,26 @@ export default function ShowStudySet() {
                 </li>
               ))}
             </ul>
-            <button
-              type="button"
+            <Link
+              href={'/show-sets'}
               onClick={onDeleteClick}
               className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded"
             >
               Delete set
-            </button>
+            </Link>
             <Link
               href={`/update-set/${id}`}
               className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded text-center"
             >
               Edit set
             </Link>
+            <Link
+              href={`/flashcard-view/${id}`}
+              className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded text-center"
+            >
+              Start flashcards
+            </Link>
+
           </div>
         </Card>
       </div>

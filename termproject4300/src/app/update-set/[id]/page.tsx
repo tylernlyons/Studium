@@ -13,6 +13,7 @@ export default function UpdateStudySet() {
     terms: [] as { term: string; definition: string }[],
     newTerm: '',
   });
+  const [loading, setLoading] = useState(false); // <- Loading state
 
   const router = useRouter();
   const { id } = useParams();
@@ -42,12 +43,19 @@ export default function UpdateStudySet() {
 
   const handleAddTerm = async () => {
     if (studySet.newTerm.trim()) {
-      const definition = await CreateDefinition(studySet.newTerm);
-      setStudySet(prev => ({
-        ...prev,
-        terms: [...prev.terms, { term: studySet.newTerm, definition }],
-        newTerm: '',
-      }));
+      setLoading(true);
+      try {
+        const definition = await CreateDefinition(studySet.newTerm);
+        setStudySet(prev => ({
+          ...prev,
+          terms: [...prev.terms, { term: studySet.newTerm, definition }],
+          newTerm: '',
+        }));
+      } catch (err) {
+        console.error('Error fetching definition:', err);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -88,20 +96,24 @@ export default function UpdateStudySet() {
             required
             className="w-full p-2 border rounded"
           />
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <input
               type="text"
               placeholder="Add Term"
               value={studySet.newTerm}
-              onChange={(e) => setStudySet(prev => ({ ...prev, newTerm: e.target.value }))}
+              onChange={(e) =>
+                setStudySet(prev => ({ ...prev, newTerm: e.target.value }))
+              }
               className="flex-1 p-2 border rounded"
             />
             <button
               type="button"
               onClick={handleAddTerm}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              disabled={loading}
+              className={`px-4 py-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'
+                }`}
             >
-              Define
+              {loading ? 'Thinking...' : 'Define'}
             </button>
           </div>
 
