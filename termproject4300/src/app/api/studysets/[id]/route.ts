@@ -1,6 +1,7 @@
 import connectMongoDB from "../../../../../config/mongodb";
 import StudySet from "@/models/studysetSchema";
 import { NextResponse, NextRequest } from "next/server";
+import mongoose from "mongoose";
 
 interface RouteParams {
     params: { id: string };
@@ -22,7 +23,19 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 }
 
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
-    const { id } = params;
-    await StudySet.findByIdAndDelete(id);
+    const { id } = await params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return NextResponse.json({ message: "Invalid ID format" }, { status: 400 });
+    }
+
+    await connectMongoDB();
+    const deletedItem = await StudySet.findByIdAndDelete(id);
+
+    if (!deletedItem) {
+        return NextResponse.json({ message: "Set not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Set deleted" }, { status: 200 });
 
 }
