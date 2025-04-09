@@ -24,7 +24,7 @@ const Navbar = () => {
               </div>
               </Link>
               
-            <Link href="/pages/about">
+            <Link href="/about">
             <button className='nav-items'>
               <span className="span">About</span>
             </button>
@@ -33,7 +33,7 @@ const Navbar = () => {
           
           <div className='nav-items'>
             {!isLoggedIn ? (
-              <Link href="/pages/home">
+              <Link href="/home">
                 <button 
                   onClick={handleLogin} 
                   className='nav-items'

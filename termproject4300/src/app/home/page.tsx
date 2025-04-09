@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import connectMongoDB from "../../../config/mongodb";
 
 export default function Home() {
   const [durationInput, setDurationInput] = useState("");
@@ -21,12 +22,13 @@ export default function Home() {
 
   const getFocusModeUrl = () => {
     if (studyDuration > 0) {
-      return `/pages/focusMode?duration=${studyDuration}`;
+      return `/focusMode?duration=${studyDuration}`;
     }
     return "#";
   };
 
   return (
+
     <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <div>
         <h2>Set Your Study Duration</h2>
@@ -49,7 +51,7 @@ export default function Home() {
       )}
       <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
         <h3>Untimed study session:</h3>
-        <Link href={'/pages/focusMode'}>
+        <Link href={'/focusMode'}>
           <button>Start Study Session</button>
         </Link>
       </div>

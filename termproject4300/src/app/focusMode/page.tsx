@@ -14,11 +14,11 @@ export default function StudySession() {
 
   return (
     <div className="relative">
-        <>
-          <StudyTimer />
-          <StudySets />
-          <HoverDefinition />
-        </>
+      <>
+        <StudyTimer />
+        <StudySets />
+        <HoverDefinition />
+      </>
     </div>
   );
 }
