@@ -10,3 +10,7 @@
     text-decoration: underline;
     margin-bottom: 0.25rem;
 }
+
+.about {
+    background: linear-gradient(0deg, rgb(47, 82, 135) 0%, rgba(2, 0, 36, 1) 100%, rgba(66, 66, 68, 1) 100%);
+}
