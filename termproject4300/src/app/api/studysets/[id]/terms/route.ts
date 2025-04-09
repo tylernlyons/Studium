@@ -3,7 +3,7 @@ import connectMongoDB from '../../../../../../config/mongodb';
 import StudySet from "@/models/studysetSchema"
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-    const { id } = params;
+    const { id } = await params;
     const { term } = await req.json();
   
     try {

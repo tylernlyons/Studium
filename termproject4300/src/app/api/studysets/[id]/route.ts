@@ -8,7 +8,7 @@ interface RouteParams {
 }
 
 export async function PUT(request: NextRequest, { params }: RouteParams) {
-    const { id } = params;
+    const { id } = await params;
     const { title, terms, url } = await request.json();
     await connectMongoDB();
     const updatedSet = await StudySet.findByIdAndUpdate(id, { title, terms, url }, { new: true });
