@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Card from '@/components/Card';
 import CreateDefinition from '@/components/CreateDefinition';
+import HoverDefinition from '@/components/HoverDefinition';
 
 export default function UpdateStudySet() {
   const [studySet, setStudySet] = useState({
@@ -120,6 +121,7 @@ export default function UpdateStudySet() {
           </button>
         </form>
       </Card>
+      <HoverDefinition />
     </div>
   );
 }

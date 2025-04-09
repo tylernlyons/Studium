@@ -6,6 +6,7 @@ import Card from '@/components/Card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { StudySetProps } from '@/components/StudySet';
+import HoverDefinition from '@/components/HoverDefinition';
 
 export default function ShowStudySet() {
   const router = useRouter();
@@ -85,6 +86,7 @@ export default function ShowStudySet() {
           </div>
         </Card>
       </div>
+      <HoverDefinition />
     </div>
   );
 }
