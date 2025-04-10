@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
-import Card from './Card';
+import Card from '../../components/Card';
+import '../../app/Signup.css';
 
 export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, username: string, email: string, password: string }) => void }) {
   const [name, setName] = useState('');
@@ -22,20 +23,25 @@ export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, 
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-green-100 py-3">
+    
+   <div className="signup">
       <h1 className="text-4xl font-bold mb-6 text-center">Signup</h1>
+      <div className='signup-container'>
       <form onSubmit={handleSubmit}>
+  
+
+  <div className='form-labels'>
         <label htmlFor="name">Name</label>
         <input
           className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
           name="name"
           type="text"
-          placeholder="Enter your name"
+          placeholder="Enter your first and last name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username"> Create Username</label>
         <input
           className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
           name="username"
@@ -55,7 +61,7 @@ export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, 
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password"> Create Password</label>
         <input
           className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
           name="password"
@@ -64,11 +70,22 @@ export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, 
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        </div>
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button type="submit">Sign Up</button>
       </form>
-    </div>
+      <div className="divider">
+    <div className="line"></div>
+    <span className="text">OR</span>
+    <div className="line"></div>
+    
+</div>
+<div className="login-redirect"> 
+  Already have an account? <a href="/login" className= "login-link"> LOGIN </a> </div>
+      </div>
+      </div>
   );
+ 
 }
