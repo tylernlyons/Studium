@@ -7,39 +7,8 @@ import Card from "./Card";
 import { Plus } from "lucide-react";
 import { StudySetData } from "@/components/StudySetForm";
 
-
-const dummySets: StudySetData[] = [
-    {
-        _id: 1,
-        title: "Biology Basics",
-        url: "/images/Biology.jpg", 
-        terms: [
-            { term: "Mitochondria", definition: "Powerhouse of the cell" },
-            { term: "DNA", definition: "Carrier of genetic information - deoxyribonucleic acid" }
-        ]
-    },
-    {
-        _id: 2,
-        title: "Math terminology",
-        url: "/images/Math.jpg",
-        terms: [
-            { term: "Addition", definition: "The addition of two whole numbers results in the total or sum of those values combined" },
-            { term: "Multiplication", definition: "Obtain from (a number) another that contains the first number a specified number of times" }
-        ]
-    },
-    {
-        _id: 3,
-        title: "Art",
-        url: "/images/Arts.jpg",
-        terms: [
-            { term: "Picasso", definition: "Spanish artist who co-founded Cubism and is considered one of the 20th century's most influential artists" },
-            { term: "Multiplication", definition: "Dutch Post-Impressionist painter known for his striking colors, bold brushwork, and contoured forms" }
-        ]
-    }
-];
-
 export default function StudySetsPage() {
-    const [sets, setSets] = useState<StudySetData[]>(dummySets); // 🟣 
+    const [sets, setSets] = useState<StudySetData[]>([]);
 
     useEffect(() => {
         const fetchSets = async () => {
@@ -49,10 +18,7 @@ export default function StudySetsPage() {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                const allSets = [...dummySets, ...data.studySets.filter(
-                    (set: StudySetData) => !dummySets.some(dummy => dummy._id === set._id)
-                )];
-                setSets(allSets);
+                setSets(data.studySets)
             } catch (error) {
                 console.log('Error from ShowItemList:', error);
             }
