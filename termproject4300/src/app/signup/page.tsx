@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import Card from '../../components/Card';
 import '../../app/Signup.css';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, username: string, email: string, password: string }) => void }) {
   const [name, setName] = useState('');
@@ -22,10 +24,12 @@ export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, 
     onSubmit({ name, username, email, password });
   };
 
+
+
   return (
     
    <div className="signup">
-      <h1 className="text-4xl font-bold mb-6 text-center">Signup</h1>
+      <h1 className="text-4xl font-bold mb-6 text-center">Sign Up</h1>
       <div className='signup-container'>
       <form onSubmit={handleSubmit}>
   
@@ -83,9 +87,10 @@ export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, 
     
 </div>
 <div className="login-redirect"> 
-  Already have an account? <a href="/login" className= "login-link"> LOGIN </a> </div>
+  Already have an account? <Link href="/login" className= "login-link"> LOGIN </Link> </div>
       </div>
       </div>
   );
  
 }
+
