@@ -78,7 +78,10 @@ export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, 
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
+        <div className="button-wrapper">
         <button type="submit">Sign Up</button>
+        </div>
+
       </form>
       <div className="divider">
     <div className="line"></div>
