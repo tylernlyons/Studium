@@ -43,7 +43,7 @@ const LoginForm = () => {
 >
 <div className='form-labels'>
 
-    <label htmlFor="email" className="mb-1 text-sm font-medium text-gray-700">
+    <label htmlFor="email" >
       Email Address
     </label>
     <input
@@ -57,7 +57,7 @@ const LoginForm = () => {
  
 
   <div className="flex flex-col">
-    <label htmlFor="password" className="mb-1 text-sm font-medium text-gray-700">
+    <label htmlFor="password" >
       Password
     </label>
     <input
@@ -72,6 +72,7 @@ const LoginForm = () => {
 
 </div>
 {error && <p className="text-red-500 text-sm">{error}</p>}
+
 <div className="button-wrapper">
   <button
     type="submit"
@@ -80,6 +81,7 @@ const LoginForm = () => {
     Login
   </button>
 </div>
+
   <div className="divider">
     <div className="line"></div>
     <span className="text">OR</span>
@@ -87,12 +89,9 @@ const LoginForm = () => {
     </div>
 
 </form>
-
-      <p className="my-3 text-center">
-        Don't have an account?
-        <Link href="signup" className="mx-2 underline">SIGNUP</Link>
-      </p>
-     
+<div className="signup-redirect">
+  Don't have an account? <Link href="signup" className="signup-link"> SIGNUP </Link>    
+      </div>
    </div>
     
     </div>

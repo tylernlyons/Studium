@@ -65,13 +65,10 @@
             border-radius: 55px;
             justify-content: center;
             cursor: pointer;
-            margin: 20px;
-            
-           
-           
+            margin: 20px;   
         }
         
-        .signup button:hover {
+        .login button:hover {
             background-color:#3a6098;
         }
         .divider {
@@ -85,4 +82,22 @@
             background-color: #CCC;
             flex-grow: 1; 
             margin: 0 10px; 
+        }
+
+        .text {
+            white-space: nowrap;
+        }
+        
+        .signup-redirect {
+        padding: 20px;
+        }
+        
+        .signup-link {
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        
+        .signup-link:hover {
+            color: #5400b3;  
+            transition: color 0.3s;
         }
