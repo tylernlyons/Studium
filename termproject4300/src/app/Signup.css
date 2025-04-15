@@ -5,15 +5,13 @@
     justify-content: center;
     background-color: #F3F3F3;
     color: #1b2d48;
-    padding: 20px;
-   
-   
+    padding: 20px;  
 }
 
 .signup h1 {
-    align-self: flex-start;
-    
+    align-self: flex-start; 
 }
+
 .signup-container {
 display: flex;
 flex-direction: column;
