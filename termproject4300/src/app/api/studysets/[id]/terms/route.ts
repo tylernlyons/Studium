@@ -11,8 +11,8 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
   
       const updated = await StudySet.findByIdAndUpdate(
         id,
-        { $pull: { terms: { term } } },
-        { new: true }
+        { $pull: { terms: { term } } }, //removes any term that matches the term value provided
+        { new: true } //return updated document
       );
   
       if (!updated) return NextResponse.json({ error: 'Study set not found' }, { status: 404 });

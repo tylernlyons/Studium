@@ -1,12 +1,14 @@
 import mongoose, { Schema, Document } from "mongoose";
-import Term, { ITerm } from "./termSchema";
+import { ITerm } from "./termSchema";
 
+// Study set type definition
 export interface IStudySet extends Document {
   title: string;
-  terms: ITerm[];
+  terms: ITerm[]; // Array of terms with their definitions
   url: string;
 }
 
+// Mongoose schema for study sets
 const StudySetSchema = new mongoose.Schema({
   title: { type: String, required: true },
   terms: [
@@ -18,5 +20,6 @@ const StudySetSchema = new mongoose.Schema({
   url: { type: String, required: true },
 });
 
+// Export model (reuse if already compiled)
 export default mongoose.models.StudySet ||
   mongoose.model<IStudySet>("StudySet", StudySetSchema);
