@@ -19,7 +19,7 @@ export default function Signup() {
       const email = formData.get("email") as string | null;
       const password = formData.get("password") as string | null;
 
-      if (!username || !email || !password) {
+      if (!name || !username || !email || !password) {
         throw new Error("All fields are required.");
       }
 
