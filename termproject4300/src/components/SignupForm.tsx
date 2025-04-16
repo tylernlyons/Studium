@@ -1,99 +1,115 @@
 "use client";
-import { useState } from 'react';
-import Card from "../components/Card";
+
+import { FormEvent } from 'react';
+import { useRouter } from "next/navigation";
 import "../app/Signup.css";
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-export default function Signup({ onSubmit }: { onSubmit: (user: { name: string, username: string, email: string, password: string }) => void }) {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+export default function Signup() {
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
 
-    if (!username || !password) {
-      setError('Username and Password are required');
-      return;
+    try {
+      const formData = new FormData(event.currentTarget);
+
+      const name = formData.get("name") as string | null;
+      const username = formData.get("username") as string | null;
+      const email = formData.get("email") as string | null;
+      const password = formData.get("password") as string | null;
+
+      if (!username || !email || !password) {
+        throw new Error("All fields are required.");
+      }
+
+      const response = await fetch(`/api/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          username,
+          email,
+          password,
+        }),
+      });
+
+      if (response.status === 201) {
+        router.push("/login");
+      } else {
+        console.log(`Failed to register: ${response.statusText}`);
+      }
+    } catch (e: any) {
+      console.log(e.message || "An error occurred during registration.");
     }
-
-    setError('');
-    onSubmit({ name, username, email, password });
-  };
+  }
 
 
 
   return (
-    
-   <div className="signup">
+
+    <div className="signup">
       <h1 className="text-4xl font-bold mb-6 text-center">Sign Up</h1>
       <div className='signup-container'>
-      <form onSubmit={handleSubmit}>
-  
+        <form onSubmit={handleSubmit}>
 
-  <div className='form-labels'>
-        <label htmlFor="name">Name</label>
-        <input
-          className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
-          name="name"
-          type="text"
-          placeholder="Enter your first and last name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
 
-        <label htmlFor="username"> Create Username</label>
-        <input
-          className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
-          name="username"
-          type="text"
-          placeholder="Enter your username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+          <div className='form-labels'>
+            <label htmlFor="name">Name</label>
+            <input
+              className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
+              type="text"
+              name="name"
+              id="name"
+              required
+            />
 
-        <label htmlFor="email">Email</label>
-        <input
-          className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
-          name="email"
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+            <label htmlFor="username"> Create Username</label>
+            <input
+              className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
+              type="text"
+              name="username"
+              id="username"
+              required
+            />
 
-        <label htmlFor="password"> Create Password</label>
-        <input
-          className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
-          name="password"
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            <label htmlFor="email">Email</label>
+            <input
+              className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
+              type="email"
+              name="email"
+              id="email"
+              required
+            />
+
+            <label htmlFor="password"> Create Password</label>
+            <input
+              className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
+              type="password"
+              name="password"
+              id="password"
+              required
+            />
+          </div>
+
+          <div className="button-wrapper">
+            <button type="submit">Sign Up</button>
+          </div>
+
+        </form>
+        <div className="divider">
+          <div className="line"></div>
+          <span className="text">OR</span>
+          <div className="line"></div>
+
         </div>
-
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-
-        <div className="button-wrapper">
-        <button type="submit">Sign Up</button>
-        </div>
-
-      </form>
-      <div className="divider">
-    <div className="line"></div>
-    <span className="text">OR</span>
-    <div className="line"></div>
-    
-</div>
-<div className="login-redirect"> 
-  Already have an account? <Link href="/login" className= "login-link"> LOGIN </Link> </div>
+        <div className="login-redirect">
+          Already have an account? <Link href="/login" className="login-link"> LOGIN </Link> </div>
       </div>
-      </div>
+    </div>
   );
- 
+
 }
 

@@ -1,102 +1,84 @@
-"use client";
-import Link from "next/link";
-//import { doCredentialLogin } from "../app/actions";
-import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import "../app/Login.css"
+'use client';
 
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState, FormEvent } from 'react';
+import Link from 'next/link';
+import '../app/Login.css';
 
 const LoginForm = () => {
   const router = useRouter();
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState('');
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    try {
-      const formData = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
 
-      //const response = await doCredentialLogin(formData);
+    const result = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
 
-      if (response?.error) {
-        console.error(response.error);
-        setError(response.error.message || "An error occurred");
-      } else {
-        router.push("/");
-      }
-    } catch (e: any) {
-      console.error(e);
-      setError("Check your Credentials");
+    if (result?.ok) {
+      router.refresh();
+      router.push('/home');
+    } else {
+      setError('Invalid email or password.');
     }
   }
 
   return (
     <div className="login">
-    
-   
-       <h1 className="text-4xl font-bold mb-6 text-center">Login</h1>
+      <h1 className="text-4xl font-bold mb-6 text-center">Login</h1>
       {error && <div className="text-lg text-red-500">{error}</div>}
-  <div className="login-container">
-      <form
-  onSubmit={onSubmit}
-  className=""
->
-<div className='form-labels'>
+      <div className="login-container">
+        <form onSubmit={onSubmit}>
+          <div className="form-labels">
+            <label htmlFor="email">Email Address</label>
+            <input
+              className="p-2 border border-gray-300 rounded-md"
+              type="email"
+              name="email"
+              required
+            />
 
-    <label htmlFor="email" >
-      Email Address
-    </label>
-    <input
-      className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
-      type="email"
-      name="email"
-      id="email"
-      placeholder="Email"
-      required
-    />
- 
+            <label htmlFor="password">Password</label>
+            <input
+              className="p-2 border border-gray-300 rounded-md"
+              type="password"
+              name="password"
+              required
+            />
+          </div>
 
-  <div className="flex flex-col">
-    <label htmlFor="password" >
-      Password
-    </label>
-    <input
-      className="p-2 border border-gray-300 rounded-md text-base focus:outline-none focus:border-blue-500"
-      type="password"
-      name="password"
-      id="password"
-      placeholder="Password"
-      required
-    />
-  </div>
+          <div className="button-wrapper">
+            <button
+              type="submit"
+              className="bg-red-700 text-white rounded px-4 py-2 mt-2 hover:bg-red-800 transition"
+            >
+              Login
+            </button>
+          </div>
 
-</div>
-{error && <p className="text-red-500 text-sm">{error}</p>}
+          <div className="divider">
+            <div className="line"></div>
+            <span className="text">OR</span>
+            <div className="line"></div>
+          </div>
+        </form>
 
-<div className="button-wrapper">
-  <button
-    type="submit"
-    className="bg-red-700 text-white rounded px-4 py-2 mt-2 hover:bg-red-800 transition"
-  >
-    Login
-  </button>
-</div>
-
-  <div className="divider">
-    <div className="line"></div>
-    <span className="text">OR</span>
-    <div className="line"></div>
-    </div>
-
-</form>
-<div className="signup-redirect">
-  Don't have an account? <Link href="signup" className="signup-link"> SIGNUP </Link>    
+        <div className="signup-redirect">
+          Don't have an account?{' '}
+          <Link href="/signup" className="signup-link">
+            SIGNUP
+          </Link>
+        </div>
       </div>
-   </div>
-    
     </div>
- 
-  
   );
 };
 
