@@ -1,5 +1,6 @@
 import "./SplashPage.css"
 import connectMongoDB from "../../config/mongodb";
+import Link from "next/link";
 //unauthorized home page with about, welcome, etc.
 
 export default function RootPage() {
@@ -12,7 +13,7 @@ export default function RootPage() {
         <div className="intro-content">
           <h1>STUDIUM</h1>
           <p className="p">A distraction-free study platform with a built-in lockdown mode, AI-powered assistance, and customizable flashcards. Stay focused, track your sessions, and power through your studies!</p>
-          <button>Start your session here</button>
+          <Link href={"/home"}><button>Start your session here</button></Link>
         </div>
 
         <div className="intro-img">

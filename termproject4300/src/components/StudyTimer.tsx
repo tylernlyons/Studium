@@ -1,32 +1,49 @@
 'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const StudyTimer = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const durationParam = searchParams.get("duration");
-  const initialDuration = durationParam ? parseInt(durationParam) : 0;
-
-  const [timeLeft, setTimeLeft] = useState(initialDuration * 60);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isActive, setIsActive] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedDuration = localStorage.getItem("studyDuration");
+    const storedStart = localStorage.getItem("studyStart");
+
+    const duration = storedDuration ? parseInt(storedDuration) * 60 : 0;
+    const start = storedStart ? parseInt(storedStart) : null;
+
+    if (duration > 0 && start) {
+      const elapsed = Math.floor((Date.now() - start) / 1000);
+      const remaining = Math.max(duration - elapsed, 0);
+
+      setTimeLeft(remaining);
+      if (remaining <= 0) {
+        setIsComplete(true);
+        setIsActive(false);
+      }
+    } else {
+      setTimeLeft(0);
+      setIsActive(false);
+    }
+  }, []);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
-    if (isActive && timeLeft > 0) {
+    if (isActive && timeLeft !== null && timeLeft > 0) {
       intervalId = setInterval(() => {
         setTimeLeft((prev) => {
-          if (prev <= 1) {
+          if (prev !== null && prev <= 1) {
             clearInterval(intervalId);
             setIsActive(false);
             setIsComplete(true);
             return 0;
           }
-          return prev - 1;
+          return prev! - 1;
         });
       }, 1000);
     }
@@ -37,32 +54,33 @@ const StudyTimer = () => {
   const handleEndSession = () => {
     setIsActive(false);
     setIsComplete(true);
+    localStorage.removeItem("studyStart");
+    localStorage.removeItem("studyDuration");
   };
 
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
+  const minutes = timeLeft !== null ? Math.floor(timeLeft / 60) : 0;
+  const seconds = timeLeft !== null ? timeLeft % 60 : 0;
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center p-6">
       {isComplete ? (
-        <div className="text-center">
-          <h1 className="">Session Complete!</h1>
+        <div className="text-center ">
+          <h2 className="text-2xl font-bold text-green-500 p-6">Session Complete!</h2>
           <button
             onClick={() => router.push("/")}
-            className="bg-blue-500"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-900 transition"
           >
             Back to Home
           </button>
         </div>
       ) : (
         <>
-          <h2 className="">Time Left</h2>
-          <div className="">
-            {minutes}m {seconds}s
-          </div>
+          <h2 className="text-3xl font-bold mb-4">
+            Time Left: {minutes}:{seconds.toString().padStart(2, "0")}
+          </h2>
           <button
             onClick={handleEndSession}
-            className="bg-red-500"
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
           >
             End Session
           </button>
