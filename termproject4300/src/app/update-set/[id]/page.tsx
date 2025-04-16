@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Card from '@/components/Card';
 import CreateDefinition from '@/components/CreateDefinition';
+import Link from 'next/link';
 import HoverDefinition from '@/components/HoverDefinition';
 
 export default function UpdateStudySet() {
@@ -13,7 +14,7 @@ export default function UpdateStudySet() {
     terms: [] as { term: string; definition: string }[],
     newTerm: '',
   });
-  const [loading, setLoading] = useState(false); // <- Loading state
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
   const { id } = useParams();
@@ -39,6 +40,17 @@ export default function UpdateStudySet() {
       ...prev,
       [name]: value,
     }));
+  };
+  const onDeleteClick = async () => {
+    try {
+      const response = await fetch(`/api/studysets/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Network response was not ok');
+      router.push('/show-sets');
+    } catch (error) {
+      console.log('Error in ShowItemDetails_deleteClick', error);
+    }
   };
 
   const handleAddTerm = async () => {
@@ -68,7 +80,7 @@ export default function UpdateStudySet() {
         },
         body: JSON.stringify({ term: termToDelete }),
       });
-  
+
       if (res.ok) {
         setStudySet((prev) => ({
           ...prev,
@@ -81,7 +93,7 @@ export default function UpdateStudySet() {
       console.error('Error deleting term:', error);
     }
   };
-  
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -156,7 +168,13 @@ export default function UpdateStudySet() {
             </div>
           ))}
 
-
+          <Link
+            href={'/show-sets'}
+            onClick={onDeleteClick}
+            className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded"
+          >
+            Delete set
+          </Link>
           <button
             type="submit"
             className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-600"

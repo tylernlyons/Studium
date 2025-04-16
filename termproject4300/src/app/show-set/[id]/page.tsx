@@ -23,18 +23,6 @@ export default function ShowStudySet() {
     fetchStudySet();
   }, [id]);
 
-  const onDeleteClick = async () => {
-    try {
-      const response = await fetch(`/api/studysets/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) throw new Error('Network response was not ok');
-      router.push('/show-sets');
-    } catch (error) {
-      console.log('Error in ShowItemDetails_deleteClick', error);
-    }
-  };
-
   if (!studySet) {
     return <div>Loading...</div>;
   }
@@ -42,7 +30,7 @@ export default function ShowStudySet() {
   return (
     <div className="bg-white min-h-screen text-black py-10">
       <Link
-        href="/show-sets"
+        href="/focusMode"
         className="inline-block px-4 py-2 border border-gray-500 text-red-700 hover:bg-red-800 hover:text-white transition rounded"
       >
         Back To Set List
@@ -70,13 +58,7 @@ export default function ShowStudySet() {
                 </li>
               ))}
             </ul>
-            <Link
-              href={'/show-sets'}
-              onClick={onDeleteClick}
-              className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded"
-            >
-              Delete set
-            </Link>
+
             <Link
               href={`/update-set/${id}`}
               className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded text-center"
