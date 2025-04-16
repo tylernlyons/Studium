@@ -103,6 +103,7 @@ export default function UpdateStudySet() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(studySet),
       });
+      router.refresh();
       router.push(`/show-set/${id}`);
     } catch (err) {
       console.error('Error updating study set:', err);
