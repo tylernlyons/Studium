@@ -23,7 +23,7 @@ const LoginForm = () => {
       redirect: false,
     });
 
-    if (result?.ok) {
+    if (result && !result.error) {
       router.refresh();
       router.push('/home');
     } else {
