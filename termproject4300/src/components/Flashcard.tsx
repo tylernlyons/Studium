@@ -30,6 +30,30 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
         setFlipped(false);
     }, [terms]);
     
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            switch (e.code) {
+                case 'ArrowLeft':
+                    prevCard();
+                    break;
+                case 'ArrowRight':
+                    nextCard();
+                    break;
+                case 'Space':
+                    e.preventDefault(); // Prevent scrolling
+                    flipCard();
+                    break;
+                default:
+                    break;
+            }
+        };
+    
+        window.addEventListener('keydown', handleKeyDown);
+    
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    });
 
     const flipCard = () => {
         setFlipped(!flipped);
@@ -59,11 +83,12 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
     return (
         <div className="flex flex-col items-center justify-center h-full p-4">
             <div className="w-96 h-56 perspective">
-                <div
+                <div 
+                onClick={flipCard}
                 className={`relative w-full h-full transition-transform duration-500 transform ${
                     flipped ? 'rotate-y-180' : ''
                 }`}
-                style={{ transformStyle: 'preserve-3d' }}
+                style={{ transformStyle: 'preserve-3d', cursor: 'pointer' }}
                 >
                 {/* Front side */}
                 <div className="absolute w-full h-full bg-white shadow-lg rounded-lg flex items-center justify-center text-xl p-4 border backface-hidden">
@@ -71,7 +96,7 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
                 </div>
 
                 {/* Back side */}
-                <div className="absolute w-full h-full bg-gray-200 shadow-lg rounded-lg flex items-center justify-center text-xl p-4 border backface-hidden transform rotate-y-180">
+                <div className="absolute w-full h-full bg-gray-50 shadow-lg rounded-lg flex items-center justify-center text-xl p-4 border backface-hidden transform rotate-y-180">
                     {definition}
                 </div>
             </div>
