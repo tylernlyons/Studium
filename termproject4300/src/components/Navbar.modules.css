@@ -1,5 +1,10 @@
 nav {
-    background-color: #2c456b;
+    
+    background: linear-gradient(0deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(71, 121, 196, 1) 100%
+    ); 
+
 }
 
 .name-login-container {
@@ -18,7 +23,10 @@ nav {
     
 
     & button {
-        background-color: #1b2d48;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+         border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
         &:hover {
             @media (hover: hover) {
                 background-color: #3c649f;
