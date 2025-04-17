@@ -14,22 +14,23 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
         setFlipped(false);
         setTimeout(() => {
             setCurrentIndex((prev) => (prev + 1) % shuffledTerms.length);
-        }, 200);
+        }, 200); /* This delay allows the flip animation to complete before changing the card */
     };
-    const [shuffledTerms, setShuffledTerms] = useState(terms);
+    const [shuffledTerms, setShuffledTerms] = useState(terms); 
     const prevCard = () => {
         setFlipped(false);
         setTimeout(() => {
             setCurrentIndex((prev) => (prev - 1 + shuffledTerms.length) % shuffledTerms.length);
-        }, 200);
+        }, 200); /* This delay allows the flip animation to complete before changing the card */
     };
 
     useEffect(() => {
         setShuffledTerms(terms);
         setCurrentIndex(0);
         setFlipped(false);
-    }, [terms]);
+    }, [terms]); 
     
+    // Handle keyboard events for navigation and flipping
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             switch (e.code) {
@@ -55,10 +56,12 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
         };
     });
 
+    // Handle touch events for mobile navigation
+    // flipCard function to flip the card
     const flipCard = () => {
         setFlipped(!flipped);
     };
-
+    // shuffleCards function to shuffle the cards
     const shuffleCards = () => {
         const shuffled = [...terms].sort(() => Math.random() - 0.5);
         setShuffledTerms(shuffled);
@@ -66,6 +69,8 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
         setFlipped(false);
     }
 
+    // Check if there are no terms to display
+    // If there are no terms, show a message and a button to go back
     if (shuffledTerms.length === 0) {
         return (
             <div className="text-center p-4">
@@ -79,7 +84,7 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
     
     const { term, definition } = shuffledTerms[currentIndex];
     
-
+    // Check if the current index is out of bounds and reset it if necessary
     return (
         <div className="flex flex-col items-center justify-center h-full p-4">
             <div className="w-96 h-56 perspective">
@@ -101,6 +106,7 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
                 </div>
             </div>
         </div>
+        {/* Buttons for navigation and shuffling */}
             <div className="mt-4 flex gap-4">
                 <button 
                     onClick={flipCard} 
@@ -133,7 +139,7 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
                     Back to Study Set
                 </button>
             </div>
-            
+                {/* Display the current index and total number of terms */}
             <div className="mt-6 w-full max-w-md text-center">
                 <p className="mb-2 text-white text-lg font-semibold">
                     {currentIndex + 1} / {shuffledTerms.length}

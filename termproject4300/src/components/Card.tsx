@@ -3,6 +3,7 @@ interface CardProps {
   className?: string;
 }
 
+// Card component
 const Card = ({ children, className = "" }: CardProps) => {
   return (
     <div className={`border border-gray-300 shadow-sm rounded-lg p-4 bg-white ${className}`}>

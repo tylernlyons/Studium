@@ -5,7 +5,10 @@ import './page.css';
 
 export default function about() {
 
+    // About page component
+    // This component serves as the "About Us" page for the Studium application.
     return (
+        /* The main container for the about page */
         <div className="about px-6 py-10">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-4 mb-4 lg:mb-0 text-center">
                 <div className="flex-1">
@@ -25,7 +28,7 @@ export default function about() {
                     />
                 </div>
             </div>
-                
+            {/* Second section with mission statement and features */}
             <div className="flex flex-col lg:flex-row items-center justify-between gap-10 mb-16 lg:ml-10 lg:mr-10">
                 <div className="flex-1">
                     <Image
@@ -37,6 +40,7 @@ export default function about() {
                     />
                 </div>
 
+                {/* Text section for the mission statement */}
                 <div className="flex-1 text-center lg:text-left mt-4">
                     <h2 className="about-title text-4xl font-bold mb-4 text-center">Our Mission</h2>
                     <ul className="space-y-6 text-base about-description text-center">

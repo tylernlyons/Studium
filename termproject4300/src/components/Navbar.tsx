@@ -8,10 +8,13 @@ import { useSession, signOut } from "next-auth/react";
 const Navbar = () => {
   const { data: session, status } = useSession();
 
+  // Handle logout
+  // This function is called when the user clicks the logout button.
   const handleLogout = async () => {
     await signOut({ callbackUrl: "/" });
   };
 
+  // Render the navbar component
   return (
     <nav>
       <div className='name-login-container'>
