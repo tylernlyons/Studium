@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const StudyTimer = () => {
-  const [timeLeft, setTimeLeft] = useState<number | null>(null); 
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isActive, setIsActive] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
   const router = useRouter();
