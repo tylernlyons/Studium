@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from "react";
-import CreateDefinition from "./CreateDefinition";
 
 export interface Term {
   term: string;
@@ -16,21 +15,22 @@ export interface StudySetData {
 }
 
 interface StudySetFormProps {
-  onAddSet: (set: StudySetData) => void;
+  onAddSet: (set: StudySetData) => void; // Callback to pass the created set back to parent
 }
 
 const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
-  const [title, setTitle] = useState("");
-  const [url, setURL] = useState("");
+  const [title, setTitle] = useState(""); 
+  const [url, setURL] = useState("");     
   const [terms, setTerms] = useState<Term[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Submit form to create a new study set
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newSet = {
-      _id: Math.floor(Math.random() * 100000),
+    const newSet: StudySetData = {
+      _id: Math.floor(Math.random() * 100000), // Generate random ID (for local use)
       title,
       url,
       terms,
@@ -54,11 +54,12 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
       const data = await res.json();
       console.log('Successfully created study set:', data);
 
+      // Add the new set to the parent and reset form
       onAddSet(newSet);
       setTitle('');
       setURL('');
       setTerms([]);
-      setError("");
+      setError('');
     } catch (error) {
       console.error('Error in handleSubmit:', error);
       setError("There was an error creating the study set. Please try again.");
@@ -67,6 +68,7 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="p-4 bg-white rounded shadow space-y-4">
+      {/* Title input */}
       <input
         type="text"
         placeholder="Set Title"
@@ -76,6 +78,7 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
         className="w-full p-2 border rounded"
       />
 
+      {/* Image URL input */}
       <input
         type="text"
         placeholder="Image URL"
@@ -84,8 +87,10 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
         className="w-full p-2 border rounded"
       />
 
+      {/* Error message */}
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
+      {/* Submit button */}
       <button
         type="submit"
         className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"

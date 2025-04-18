@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 
+// Interface representing a User document in MongoDB
 export interface IUser extends Document {
     name: string;
     username: string;
@@ -7,6 +8,7 @@ export interface IUser extends Document {
     password: string;
 }
 
+// Schema definition for the User model
 const userSchema = new Schema<IUser>({
     name: { type: String, required: true },
     username: { type: String, required: true },
@@ -14,4 +16,5 @@ const userSchema = new Schema<IUser>({
     password: { type: String, required: true },
 });
 
+// Export model (reuse if already compiled)
 export default mongoose.models.User || mongoose.model<IUser>("User", userSchema);

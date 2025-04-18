@@ -4,33 +4,37 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const StudyTimer = () => {
-  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null); 
   const [isActive, setIsActive] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
   const router = useRouter();
 
+  // Initialize timer from localStorage on mount
   useEffect(() => {
-    const storedDuration = localStorage.getItem("studyDuration");
-    const storedStart = localStorage.getItem("studyStart");
+    const storedDuration = localStorage.getItem("studyDuration"); // In minutes
+    const storedStart = localStorage.getItem("studyStart");       // In ms (timestamp)
 
-    const duration = storedDuration ? parseInt(storedDuration) * 60 : 0;
+    const duration = storedDuration ? parseInt(storedDuration) * 60 : 0; // Convert to seconds
     const start = storedStart ? parseInt(storedStart) : null;
 
     if (duration > 0 && start) {
       const elapsed = Math.floor((Date.now() - start) / 1000);
       const remaining = Math.max(duration - elapsed, 0);
-
       setTimeLeft(remaining);
+
+      // If time is up
       if (remaining <= 0) {
         setIsComplete(true);
         setIsActive(false);
       }
     } else {
+      // If no valid session found
       setTimeLeft(0);
       setIsActive(false);
     }
   }, []);
 
+  // Countdown interval
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -45,12 +49,13 @@ const StudyTimer = () => {
           }
           return prev! - 1;
         });
-      }, 1000);
+      }, 1000); // Decrease every second
     }
 
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId); // Cleanup
   }, [isActive, timeLeft]);
 
+  // Ends session early
   const handleEndSession = () => {
     setIsActive(false);
     setIsComplete(true);
@@ -64,7 +69,7 @@ const StudyTimer = () => {
   return (
     <div className="flex flex-col items-center justify-center p-6">
       {isComplete ? (
-        <div className="text-center ">
+        <div className="text-center">
           <h2 className="text-2xl font-bold text-green-500 p-6">Session Complete!</h2>
           <button
             onClick={() => router.push("/")}
