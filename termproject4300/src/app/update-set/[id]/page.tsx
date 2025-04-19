@@ -111,9 +111,10 @@ export default function UpdateStudySet() {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 px-4">
-      <h2 className="text-lg font-semibold mt-2">Edit Study Set</h2>
-      <Card>
+    <div className="text-white max-w-lg mx-auto mt-10 px-4">
+      <h2 className="text-lg font-semibold mt-2 mb-2">Edit Study Set</h2>
+    
+      <Card className='text-[#1b2d48]'>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             name="title"
@@ -143,16 +144,17 @@ export default function UpdateStudySet() {
               }
               className="flex-1 p-2 border rounded"
             />
+            </div>
             <button
               type="button"
               onClick={handleAddTerm}
               disabled={loading}
-              className={`px-4 py-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'
+              className={`px-4 py-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-[#1b2d48] hover:bg-[#3a6098]'
                 }`}
             >
               {loading ? 'Thinking...' : 'Define'}
             </button>
-          </div>
+        
 
           {studySet.terms.map((term, index) => (
             <div key={index} className="flex items-center justify-between p-2 border rounded mb-2">
@@ -168,20 +170,21 @@ export default function UpdateStudySet() {
               </button>
             </div>
           ))}
-
+<div className='flex flex-row'>
           <Link
             href={'/show-sets'}
             onClick={onDeleteClick}
-            className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded"
+            className="mr-4 px-6 py-2 border border-gray-500 bg-red-700 text-white  hover:bg-red-500 hover:text-white transition rounded"
           >
             Delete set
           </Link>
           <button
             type="submit"
-            className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-600"
+            className="bg-[#1b2d48] text-white px-4 py-2 rounded hover:bg-[#3a6098]"
           >
             Update Study Set
           </button>
+          </div>
         </form>
       </Card>
       <HoverDefinition />
