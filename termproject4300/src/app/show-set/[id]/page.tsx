@@ -30,12 +30,16 @@ export default function ShowStudySet() {
   return (
     <div className="bg-white min-h-screen text-black py-10">
       <StudyTimer />
+      
       <Link
         href="/focusMode"
-        className="inline-block px-4 py-2 border border-gray-500 text-red-700 hover:bg-red-800 hover:text-white transition rounded"
+        className="mb-5 ml-5 inline-block px-4 py-2 border border-gray-500 text-red-700 hover:bg-[#1b2d48] hover:text-white transition rounded"
       >
+        <div className='text-[#1b2d48] hover:text-white '>
         Back To Set List
+        </div>
       </Link>
+      
       <div className="max-w-5xl mx-auto px-4">
         <Card>
           <div className="w-full h-72 relative">
@@ -60,19 +64,20 @@ export default function ShowStudySet() {
               ))}
             </ul>
 
+<div className='flex flex-row p-3'>
             <Link
               href={`/update-set/${id}`} //sends user to edit the current set
-              className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded text-center"
+              className="w-full mr-3 px-6 py-2 border border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
             >
               Edit set
             </Link>
             <Link
               href={`/flashcard-view/${id}`} //sends user to view flashcards of current set
-              className="w-full px-6 py-2 border border-gray-500 text-red-700 hover:bg-red-700 hover:text-white transition rounded text-center"
+              className="w-full px-6 py-2 border border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
             >
               Start flashcards
             </Link>
-
+</div> 
           </div>
         </Card>
       </div>
