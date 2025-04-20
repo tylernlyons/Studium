@@ -18,7 +18,7 @@ export interface StudySetProps {
 
 const StudySet = ({ set }: StudySetProps) => {
   return (
-    <div className="shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 ease-in-out">
+    <div className="shadow-md hover:shadow-xl rounded hover:-translate-y-1 transition duration-300 ease-in-out">
     <Card>
       <h2 className="text-lg font-semibold text-[#1b2d48] pb-2">{set.title}</h2>
 

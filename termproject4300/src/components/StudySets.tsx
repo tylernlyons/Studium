@@ -42,7 +42,7 @@ export default function StudySetsPage() {
             </div>
 
             {/* Container for study sets */}
-            <div className="max-w-3xl mx-auto mb-8">
+            <div className="max-w-5xl mx-auto mb-8">
                 {/* If no sets exist */}
                 {sets && sets.length === 0 ? (
                     <div className=" text-[#1b2d48] p-3">
@@ -51,7 +51,7 @@ export default function StudySetsPage() {
                 ) : (
                     // Grid of sets
                     <div className="bg-[#f0f6fc]/45 opacity- rounded-lg w-[100%] shadow-md">
-                        <div className="text-3xl font-semibold text-[#1b2d48] pt-3 pt-2 px-5">
+                        <div className="text-3xl font-semibold text-[#1b2d48] pt-3 px-5">
                        <p>Study Sets</p>
                        </div>
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-5'>
