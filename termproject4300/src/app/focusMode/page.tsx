@@ -15,9 +15,7 @@ export default function StudySession() {
   return (
     <div className="relative">
       <>
-        <StudyTimer />
         <StudySets />
-        <HoverDefinition />
       </>
     </div>
   );

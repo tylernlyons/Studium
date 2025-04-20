@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Card from "./Card";
 
 const StudyTimer = () => {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
@@ -67,32 +68,37 @@ const StudyTimer = () => {
   const seconds = timeLeft !== null ? timeLeft % 60 : 0;
 
   return (
-    <div className="flex flex-col items-center justify-center p-6">
-      {isComplete ? (
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-green-500 p-6">Session Complete!</h2>
-          <button
-            onClick={() => router.push("/")}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-900 transition"
-          >
-            Back to Home
-          </button>
+    <div className="max-w-5xl mx-auto px-4 m-5">
+      <Card>
+        <div className="flex flex-col bg-white items-center justify-center p-10">
+          {isComplete ? (
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-green-500 p-6">Session Complete!</h2>
+              <button
+                onClick={() => router.push("/")}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-900 transition"
+              >
+                Back to Home
+              </button>
+            </div>
+          ) : (
+            <>
+              <h2 className="text-3xl font-bold mb-4">
+                Time Left: {minutes}:{seconds.toString().padStart(2, "0")}
+              </h2>
+              <button
+                onClick={handleEndSession}
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+              >
+                End Session
+              </button>
+            </>
+          )}
         </div>
-      ) : (
-        <>
-          <h2 className="text-3xl font-bold mb-4">
-            Time Left: {minutes}:{seconds.toString().padStart(2, "0")}
-          </h2>
-          <button
-            onClick={handleEndSession}
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
-          >
-            End Session
-          </button>
-        </>
-      )}
+      </Card>
     </div>
   );
+
 };
 
 export default StudyTimer;

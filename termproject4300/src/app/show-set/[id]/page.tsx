@@ -13,7 +13,7 @@ export default function ShowStudySet() {
   const [studySet, setStudySet] = useState<StudySetProps['set'] | null>(null);
   const { id } = useParams();
 
-  useEffect(() => { 
+  useEffect(() => {
     if (!id) return;
     const fetchStudySet = async () => { //fetches the supplied studyset from Mongo
       const res = await fetch(`/api/studysets/${id}`);
@@ -28,18 +28,9 @@ export default function ShowStudySet() {
   }
 
   return (
-    <div className="bg-white min-h-screen text-black py-10">
+    <div className=" py-10">
       <StudyTimer />
-      
-      <Link
-        href="/focusMode"
-        className="mb-5 ml-5 inline-block px-4 py-2 border border-gray-500 text-red-700 hover:bg-[#1b2d48] hover:text-white transition rounded"
-      >
-        <div className='text-[#1b2d48] hover:text-white '>
-        Back To Set List
-        </div>
-      </Link>
-      
+
       <div className="max-w-5xl mx-auto px-4">
         <Card>
           <div className="w-full h-72 relative">
@@ -51,7 +42,7 @@ export default function ShowStudySet() {
                 className="object-cover rounded-md"
               />
             )}
-            
+
           </div>
 
           <div className="mt-4 space-y-2">
@@ -64,20 +55,28 @@ export default function ShowStudySet() {
               ))}
             </ul>
 
-<div className='flex flex-row p-3'>
-            <Link
-              href={`/update-set/${id}`} //sends user to edit the current set
-              className="w-full mr-3 px-6 py-2 border border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
-            >
-              Edit set
-            </Link>
-            <Link
-              href={`/flashcard-view/${id}`} //sends user to view flashcards of current set
-              className="w-full px-6 py-2 border border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
-            >
-              Start flashcards
-            </Link>
-</div> 
+            <div className='flex flex-row p-3'>
+              <Link
+                href={`/update-set/${id}`} //sends user to edit the current set
+                className="w-full mr-3 px-6 py-2 border bg-[#3c649f] border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
+              >
+                Edit set
+              </Link>
+              <Link
+                href={`/flashcard-view/${id}`} //sends user to view flashcards of current set
+                className="w-full mr-3 px-6 py-2 border bg-[#3c649f] border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
+              >
+                Start flashcards
+              </Link>
+              <Link
+                href="/focusMode"
+                className="w-full mr-3 px-6 py-2 border bg-[#3c649f] border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
+              >
+                <div>
+                  Back To Set List
+                </div>
+              </Link>
+            </div>
           </div>
         </Card>
       </div>
