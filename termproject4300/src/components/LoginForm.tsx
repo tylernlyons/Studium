@@ -95,4 +95,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm; // Export the component for use
+export default LoginForm;
