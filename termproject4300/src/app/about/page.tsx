@@ -51,7 +51,7 @@ export default function about() {
 
                         <li>
                             <p className="feature-heading">Custom Study Sets</p>
-                            <p className="text-lg">Allowing learners to build, organize, and revisit personalized flashcards and material.</p>
+                            <p className="text-lg">Allowing learners to build and revisit personalized flashcards and material.</p>
                         </li>
 
                         <li>
@@ -62,11 +62,6 @@ export default function about() {
                         <li>
                             <p className="feature-heading">Focus Mode</p>
                             <p className="text-lg">Encouraging study habits by locking sessions for a set period of uninterrupted learning.</p>
-                        </li>
-
-                        <li>
-                            <p className="feature-heading">Progress Tracking</p>
-                            <p className="text-lg">Keeping a history of study sessions so users can see their growth and patterns.</p>
                         </li>
                     </ul>
                 </div>

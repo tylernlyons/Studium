@@ -12,7 +12,7 @@ export default function RootPage() {
       <div className="intro">
         <div className="intro-content">
           <h1>STUDIUM</h1>
-          <p className="p">A distraction-free study platform with a built-in lockdown mode, AI-powered assistance, and customizable flashcards. Stay focused, track your sessions, and power through your studies!</p>
+          <p className="p">A distraction-free study platform with a built-in lockdown mode, AI-powered assistance, and customizable flashcards. Stay focused, time your sessions, and power through your studies!</p>
           <Link href={"/home"}><button>Start your session here</button></Link>
         </div>
 
@@ -31,7 +31,7 @@ export default function RootPage() {
             <h3>Organize Your Study Sets</h3>
             <ul>
               <li>
-                Create and name your own study sets! The sidebar navigation makes it easy to access whenever you need them.
+                Create and name your own study sets! The landing page makes them easy to access whenever you need them.
               </li>
             </ul>
           </div>
@@ -51,7 +51,7 @@ export default function RootPage() {
             <h3>Study Smarter with AI</h3>
             <ul>
               <li>
-                AI-powered suggestions provide personalized studying. Your session history keeps track of how long you studied.
+                AI-powered suggestions provide personalized studying. Double click a word that you don't know the meaning of.
               </li>
             </ul>
           </div>
