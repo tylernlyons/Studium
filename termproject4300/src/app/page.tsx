@@ -28,7 +28,7 @@ export default function RootPage() {
         <div className="three-col">
           <div className="card">
             <img src="/images/organize.jpeg" alt="Organize" />
-            <h3>Organize Your Study Sets</h3>
+            <h3>Define Your Study Sets</h3>
             <ul>
               <li>
                 Create and name your own study sets! The landing page makes them easy to access whenever you need them.

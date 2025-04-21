@@ -80,7 +80,7 @@ export default function UpdateStudySet() {
         },
         body: JSON.stringify({ term: termToDelete }),
       });
-
+      router.refresh();
       if (res.ok) {
         setStudySet((prev) => ({
           ...prev,
@@ -172,7 +172,7 @@ export default function UpdateStudySet() {
           ))}
 <div className='flex flex-row'>
           <Link
-            href={'/show-sets'}
+            href={'/focusMode'}
             onClick={onDeleteClick}
             className="mr-4 px-6 py-2 border border-gray-500 bg-red-700 text-white  hover:bg-red-500 hover:text-white transition rounded"
           >
