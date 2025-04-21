@@ -29,7 +29,7 @@ export default function CreateStudySet() {
         body: JSON.stringify(formData),
       });
       if (!res.ok) throw new Error('Failed to create');
-      router.push('/show-sets');
+      router.push('/focusMode');
     } catch (err) {
       console.error('Error creating study set:', err);
     }
