@@ -7,6 +7,10 @@ Studium is a distraction-free study platform with a built-in lockdown mode, AI-p
 At Studium, we believe that focused minds create powerful futures. In a world of endless distractions, we set out to build a study platform that prioritizes concentration, integrity, and smart learning.
 
 
+## Team Members 
+
+Joelia Agbavon, Vivian Aguirre, Hannah Le, Tyler Lyons 
+
 ## Getting Started
 
 1. Ensure you're CD'd into the `termproject4300` directory.
