@@ -13,7 +13,7 @@ Joelia Agbavon, Vivian Aguirre, Hannah Le, Tyler Lyons
 
 ## Getting Started
 
-1. Ensure you're CD'd into the `termproject4300` directory.
+1. Ensure you're CD'd into the `Studium` directory.
 
 2. Run the development server:
 
