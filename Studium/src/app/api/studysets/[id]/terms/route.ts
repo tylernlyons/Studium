@@ -1,10 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import connectMongoDB from '../../../../../../config/mongodb';
 import StudySet from "@/models/studysetSchema"
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-    const { id } = await params;
-    const { term } = await req.json();
+export async function DELETE(request: NextRequest, context: unknown) {
+  const { params } = context as { params: { id: string } };
+  const { id } = params;
+    const { term } = await request.json();
   
     try {
       await connectMongoDB();
@@ -18,7 +19,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
       if (!updated) return NextResponse.json({ error: 'Study set not found' }, { status: 404 });
   
       return NextResponse.json({ message: 'Term deleted successfully' });
-    } catch (err) {
+    } catch {
       return NextResponse.json({ error: 'Failed to delete term' }, { status: 500 });
     }
   }

@@ -40,8 +40,9 @@ export default function Signup() {
       } else {
         console.log(`Failed to register: ${response.statusText}`);
       }
-    } catch (e: any) {
-      console.log(e.message || "An error occurred during registration.");
+    } catch (error: unknown) {
+      // Log and fail on error
+      console.log("An error occurred: ", error);
     }
   }
 

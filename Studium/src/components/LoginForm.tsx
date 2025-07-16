@@ -85,7 +85,7 @@ const LoginForm = () => {
 
         {/* Signup redirect */}
         <div className="signup-redirect">
-          Don't have an account?{' '}
+          {"Don't have an account?"}{' '}
           <Link href="/signup" className="signup-link">
             SIGNUP
           </Link>

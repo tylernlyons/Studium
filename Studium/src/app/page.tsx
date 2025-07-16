@@ -51,7 +51,7 @@ export default function RootPage() {
             <h3>Study Smarter with AI</h3>
             <ul>
               <li>
-                AI-powered suggestions provide personalized studying. Double click a word that you don't know the meaning of.
+                {"AI-powered suggestions provide personalized studying. Double click a word that you don't know the meaning of."}
               </li>
             </ul>
           </div>

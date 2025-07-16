@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const preventBackNavigation = () => {
+const usePreventBackNavigation = () => {
   useEffect(() => {
     const handleHistory = () => {
       // Push the current page back onto the history stack to prevent backward navigation
@@ -21,4 +21,4 @@ const preventBackNavigation = () => {
   }, []);
 };
 
-export default preventBackNavigation;
+export default usePreventBackNavigation;

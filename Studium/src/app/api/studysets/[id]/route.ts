@@ -3,28 +3,26 @@ import StudySet from "@/models/studysetSchema";
 import { NextResponse, NextRequest } from "next/server";
 import mongoose from "mongoose";
 
-interface RouteParams {
-    params: { id: string };
-}
-
-export async function PUT(request: NextRequest, { params }: RouteParams) {
-    const { id } = await params;
+export async function PUT(request: NextRequest, context: unknown) {
+    const { params } = context as { params: { id: string } };
+    const { id } = params;
     const { title, terms, url } = await request.json();
     await connectMongoDB();
     const updatedSet = await StudySet.findByIdAndUpdate(id, { title, terms, url }, { new: true });
     return NextResponse.json({ updatedSet }, { status: 200 });
 }
 
-export async function GET(request: NextRequest, { params }: RouteParams) {
-    const { id } = await params;
+export async function GET(request: NextRequest, context: unknown) {
+    const { params } = context as { params: { id: string } };
+    const { id } = params;
     await connectMongoDB();
     const studySet = await StudySet.findOne({ _id: id });
     return NextResponse.json({ studySet }, { status: 200 });
 }
 
-export async function DELETE(request: NextRequest, { params }: RouteParams) {
-    const { id } = await params;
-
+export async function DELETE(request: NextRequest, context: unknown) {
+    const { params } = context as { params: { id: string } };
+    const { id } = params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return NextResponse.json({ message: "Invalid ID format" }, { status: 400 });
     }

@@ -59,7 +59,7 @@ export const authConfig: NextAuthConfig = {
                         console.log("User not found");
                         return null;
                     }
-                } catch (error: any) {
+                } catch (error: unknown) {
                     // Log and fail on error
                     console.log("An error occurred: ", error);
                     return null;

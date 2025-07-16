@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
 // Interface representing a Term document in MongoDB
 export interface ITerm extends Document {

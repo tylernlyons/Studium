@@ -20,10 +20,10 @@ export const POST = async (request: NextRequest) => {
   }
   try {
     await User.create(newUser);
-  } catch (e: any) {
-    return new NextResponse(e.message, {
-      status: 500,
-    });
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      return new NextResponse(e.message, { status: 500 });
+    }
   }
 
   return new NextResponse("User has been created", {

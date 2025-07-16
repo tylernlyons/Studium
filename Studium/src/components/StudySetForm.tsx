@@ -22,7 +22,6 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
   const [title, setTitle] = useState(""); 
   const [url, setURL] = useState("");     
   const [terms, setTerms] = useState<Term[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   // Submit form to create a new study set
@@ -94,7 +93,6 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
       <button
         type="submit"
         className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        disabled={isLoading}
       >
         Create Study Set
       </button>
