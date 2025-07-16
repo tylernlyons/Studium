@@ -1,48 +1,46 @@
-"use client"; // Marks this as a Client Component (needed for hooks)
+'use client';
 
-import { FormEvent } from 'react';
-import { useRouter } from "next/navigation"; // For redirecting on success
-import "./Signup.css";
+import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import './Signup.css';
 import Link from 'next/link';
 
 export default function Signup() {
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
+  const [emailError, setEmailError] = useState('');
 
-  // Handle form submission
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
     try {
       const formData = new FormData(event.currentTarget);
 
-      // Extract and validate form fields
-      const name = formData.get("name") as string | null;
-      const username = formData.get("username") as string | null;
-      const email = formData.get("email") as string | null;
-      const password = formData.get("password") as string | null;
+      const name = formData.get('name') as string | null;
+      const email = formData.get('email') as string | null;
+      const password = formData.get('password') as string | null;
 
-      if (!name || !username || !email || !password) {
-        throw new Error("All fields are required.");
+      if (!name || !email || !password) {
+        setEmailError('All fields are required.');
+        return;
       }
 
-      // Send POST request to API
-      const response = await fetch(`/api/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, username, email, password }),
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
       });
 
-      // On success, navigate to login page
       if (response.status === 201) {
-        router.push("/login");
+        setEmailError('');
+        router.push('/login');
+      } else if (response.status === 409) {
+        setEmailError('An account with that email address already exists. Please log in to continue.');
       } else {
-        console.log(`Failed to register: ${response.statusText}`);
+        setEmailError('Something went wrong. Please try again.');
       }
-    } catch (error: unknown) {
-      // Log and fail on error
-      console.log("An error occurred: ", error);
+    } catch (error) {
+      console.error('An error occurred:', error);
+      setEmailError('Unexpected error. Please try again.');
     }
   }
 
@@ -50,20 +48,24 @@ export default function Signup() {
     <div className="signup">
       <h1 className="text-4xl font-bold mb-6 text-center">Sign Up</h1>
 
-      <div className='signup-container'>
+      <div className="signup-container">
         <form onSubmit={handleSubmit}>
-          <div className='form-labels'>
+          <div className="form-labels">
             {/* Name input */}
             <label htmlFor="name">Name</label>
             <input className="p-2 border border-gray-300 rounded-md" type="text" name="name" id="name" required />
 
-            {/* Username input */}
-            <label htmlFor="username">Create Username</label>
-            <input className="p-2 border border-gray-300 rounded-md" type="text" name="username" id="username" required />
-
             {/* Email input */}
             <label htmlFor="email">Email</label>
-            <input className="p-2 border border-gray-300 rounded-md" type="email" name="email" id="email" required />
+            <input
+              className="p-2 border border-gray-300 rounded-md"
+              type="email"
+              name="email"
+              id="email"
+              required
+              onChange={() => setEmailError('')}
+            />
+            {emailError && <p className="text-red-600 text-sm mt-1">{emailError}</p>}
 
             {/* Password input */}
             <label htmlFor="password">Create Password</label>
@@ -85,7 +87,10 @@ export default function Signup() {
 
         {/* Redirect to login */}
         <div className="login-redirect">
-          Already have an account? <Link href="/login" className="login-link">LOGIN</Link>
+          Already have an account?{' '}
+          <Link href="/login" className="login-link">
+            LOGIN
+          </Link>
         </div>
       </div>
     </div>

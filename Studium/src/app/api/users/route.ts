@@ -6,15 +6,21 @@ import bcrypt from "bcryptjs";
 
 
 export const POST = async (request: NextRequest) => {
-  const {name, username, email, password} = await request.json();
+  const { name, email, password } = await request.json();
 
-  console.log(username, email, password);
 
   await connectMongoDB();
+  const existingUser = await User.findOne({ email });
+
+  if (existingUser) {
+    return NextResponse.json(
+      { error: 'Email already exists' },
+      { status: 409 }
+    );
+  }
   const hashedPassword = await bcrypt.hash(password, 5);
   const newUser = {
     name,
-    username,
     password: hashedPassword,
     email
   }
@@ -30,4 +36,4 @@ export const POST = async (request: NextRequest) => {
     status: 201,
   });
 
- }
+}
