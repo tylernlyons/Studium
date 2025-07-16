@@ -13,14 +13,5 @@ Joelia Agbavon, Vivian Aguirre, Hannah Le, Tyler Lyons
 
 ## Getting Started
 
-1. Ensure you're CD'd into the `Studium` directory.
-
-2. Run the development server:
-
-```bash
-npm run dev
-
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Navigate to [Studium.fyi](https://studium.fyi)
 
