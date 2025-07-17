@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 export async function PUT(request: NextRequest, context: unknown) {
     const { params } = context as { params: { id: string } };
-    const { id } = params;
+    const { id } = await params;
     const { title, terms, url } = await request.json();
     await connectMongoDB();
     const updatedSet = await StudySet.findByIdAndUpdate(id, { title, terms, url }, { new: true });
@@ -14,7 +14,7 @@ export async function PUT(request: NextRequest, context: unknown) {
 
 export async function GET(request: NextRequest, context: unknown) {
     const { params } = context as { params: { id: string } };
-    const { id } = params;
+    const { id } = await params;
     await connectMongoDB();
     const studySet = await StudySet.findOne({ _id: id });
     return NextResponse.json({ studySet }, { status: 200 });
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest, context: unknown) {
 
 export async function DELETE(request: NextRequest, context: unknown) {
     const { params } = context as { params: { id: string } };
-    const { id } = params;
+    const { id } = await params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return NextResponse.json({ message: "Invalid ID format" }, { status: 400 });
     }
