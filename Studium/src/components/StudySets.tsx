@@ -10,67 +10,54 @@ import StudyTimer from "./StudyTimer";
 
 export default function StudySetsPage() {
     const [sets, setSets] = useState<StudySetData[]>([]);
-    const [filter, setFilter] = useState<"all" | "public" | "private">("all");
 
-    // Fetch sets when filter changes
+    // Fetch study sets on component mount
     useEffect(() => {
         const fetchSets = async () => {
             try {
-                const response = await fetch(`/api/studysets?filter=${filter}`);
+                const response = await fetch('/api/studysets'); // Call API endpoint
                 if (!response.ok) {
-                    throw new Error("Network response was not ok");
+                    throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setSets(data.studySets);
+                setSets(data.studySets); // Update state with fetched sets
             } catch (error) {
-                console.error("Error fetching study sets:", error);
+                console.log('Error from ShowItemList:', error);
             }
         };
         fetchSets();
-    }, [filter]);
+    }, []);
 
     return (
-        <div className="bg-gradient-to-br from-[#1b2d48] via-[#D2DDDF] space-x-4 p-8 min-h-screen">
-            <StudyTimer />
+        
+        <div className="bg-gradient-to-br from-[#1b2d48] via-[#D2DDDF] space-x-4 p-8 bg-min-h-screen ">
+            <StudyTimer/>
             <div className="flex flex-col items-center justify-center">
-
-                {/* Create new set card */}
                 <div className="mb-6 w-[50%] shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 ease-in-out">
+                    
                     <Card className="flex flex-col items-center justify-center p-8 hover:shadow-lg transition">
                         <Plus size={32} className="text-[#1b2d48]" />
-                        <Link href="/create-set" className="mt-2 text-[#1b2d48] font-medium hover:underline">
+                        <Link href="/create-set" className="mt-2 text-[#1b2d48] justify-center  font-medium hover:underline">
                             Create New Set
                         </Link>
                     </Card>
                 </div>
 
-                {/* Filter select dropdown */}
-                <div className="mb-4">
-                    <label htmlFor="filter" className="mr-2 text-[#1b2d48] font-medium">Filter:</label>
-                    <select
-                        id="filter"
-                        value={filter}
-                        onChange={(e) => setFilter(e.target.value as "all" | "public" | "private")}
-                        className="border border-[#1b2d48] rounded px-3 py-1 text-[#1b2d48] bg-white"
-                    >
-                        <option value="all">All</option>
-                        <option value="public">Public</option>
-                        <option value="private">Private</option>
-                    </select>
-                </div>
-
-                {/* Sets grid */}
-                <div className="max-w-5xl mx-auto mb-8 w-full">
-                    {sets.length === 0 ? (
-                        <div className="text-[#1b2d48] p-3">
+                {/* Container for study sets */}
+                <div className="max-w-5xl mx-auto mb-8">
+                    {/* If no sets exist */}
+                    {sets && sets.length === 0 ? (
+                        <div className=" text-[#1b2d48] p-3">
                             <p>No study sets available</p>
                         </div>
                     ) : (
-                        <div className="bg-[#f0f6fc]/45 rounded-lg w-full shadow-md">
+                        // Grid of sets
+                        <div className="bg-[#f0f6fc]/45 opacity- rounded-lg w-[100%] shadow-md">
                             <div className="text-3xl font-semibold text-[#1b2d48] pt-3 px-5">
                                 <p>Study Sets</p>
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-5">
+                            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-5'>
+
                                 {sets.map((set, k) => (
                                     <StudySet set={set} key={k} />
                                 ))}
@@ -78,6 +65,8 @@ export default function StudySetsPage() {
                         </div>
                     )}
                 </div>
+
+
             </div>
         </div>
     );

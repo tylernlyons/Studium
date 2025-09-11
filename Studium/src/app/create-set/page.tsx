@@ -8,16 +8,15 @@ export default function CreateStudySet() {
   const [formData, setFormData] = useState({
     title: '',
     url: '',
-    public: false,
   });
 
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, type, value, checked } = e.target;
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: value,
     }));
   };
 
@@ -41,16 +40,6 @@ export default function CreateStudySet() {
       <h2 className="text-lg font-semibold mt-2">Create a Study Set</h2>
       <Card>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              name="public"
-              checked={formData.public}
-              onChange={handleChange}
-              className="form-checkbox"
-            />
-            <span>Make this study set public</span>
-          </label>
           <input
             name="title"
             type="text"

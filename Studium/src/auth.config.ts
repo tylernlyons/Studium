@@ -8,11 +8,12 @@ interface UserType {
     _id: string;
     email: string;
     name: string;
+    username: string;
     password: string;
 }
 
 // NextAuth configuration object
-export const authOptions: NextAuthConfig = {
+export const authConfig: NextAuthConfig = {
     secret: process.env.NEXTAUTH_SECRET, // Secret used to encrypt JWT/session tokens
 
     session: {
@@ -48,7 +49,7 @@ export const authOptions: NextAuthConfig = {
                             return {
                                 id: user._id.toString(),
                                 email: user.email,
-                                name: user.name,
+                                name: user.name || user.username, // Use name if available, fallback to username
                             };
                         } else {
                             console.log("Email or Password is not correct");
@@ -66,19 +67,4 @@ export const authOptions: NextAuthConfig = {
             },
         }),
     ],
-    callbacks: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.id = user.id;
-            }
-            return token;
-        },
-        async session({ session, token }) {
-            if (token?.id && session.user) {
-                session.user.id = token.id as string;
-            }
-            return session;
-        }
-    },
-
 };

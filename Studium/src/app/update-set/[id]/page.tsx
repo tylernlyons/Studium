@@ -13,7 +13,6 @@ export default function UpdateStudySet() {
     url: '',
     terms: [] as { term: string; definition: string }[],
     newTerm: '',
-    public: false,
   });
   const [loading, setLoading] = useState(false);
 
@@ -30,8 +29,6 @@ export default function UpdateStudySet() {
         url: data.studySet.url,
         terms: data.studySet.terms || [],
         newTerm: '',
-        public: data.studySet.public,
-
       });
     };
     fetchStudySet();
@@ -101,7 +98,6 @@ export default function UpdateStudySet() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log("Submitting updated set:", studySet);
       await fetch(`/api/studysets/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -120,16 +116,6 @@ export default function UpdateStudySet() {
 
       <Card className='text-[#1b2d48]'>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={studySet.public}
-              onChange={(e) =>
-                setStudySet((prev) => ({ ...prev, public: e.target.checked }))
-              }
-            />
-            <span className="text-sm">Make this set public</span>
-          </label>
           <input
             name="title"
             type="text"
