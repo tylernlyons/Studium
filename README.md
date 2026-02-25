@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Description
 
 [Studium](https://studium.fyi) is a distraction-free study platform with a built-in lockdown mode, OpenAI-powered assistance, and customizable flashcards. Stay focused, time your sessions, and power through your studies!
