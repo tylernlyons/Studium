@@ -45,15 +45,31 @@ export async function GET(request: NextRequest, context: unknown) {
     }
 
     await connectMongoDB();
-    const studySet = await StudySet.findById(id).populate({ path: "ownerId", select: "name" }).lean();
-    if (!studySet) {
+    const rawStudySet = await StudySet.findById(id)
+        .populate({ path: "ownerId", select: "username email" })
+        .lean();
+
+    if (!rawStudySet || Array.isArray(rawStudySet)) {
         return NextResponse.json({ message: "Set not found" }, { status: 404 });
     }
 
+    const studySet = rawStudySet as {
+        isPublic?: boolean;
+        ownerId?: unknown;
+        [key: string]: unknown;
+    };
+
+    const populatedOwner =
+        typeof studySet.ownerId === "object" && studySet.ownerId !== null
+            ? (studySet.ownerId as { _id?: unknown; username?: string; email?: string })
+            : undefined;
+
     const ownerIdValue =
-        typeof studySet.ownerId === "object" && studySet.ownerId?._id
-            ? studySet.ownerId._id.toString()
-            : studySet.ownerId?.toString();
+        populatedOwner?._id !== undefined
+            ? String(populatedOwner._id)
+            : studySet.ownerId !== undefined
+                ? String(studySet.ownerId)
+                : undefined;
     const isOwner = ownerIdValue === userId;
     if (!studySet.isPublic && !isOwner) {
         return NextResponse.json({ message: "Forbidden" }, { status: 403 });
@@ -63,10 +79,12 @@ export async function GET(request: NextRequest, context: unknown) {
         {
             studySet: {
                 ...studySet,
-                ownerName:
-                    typeof studySet.ownerId === "object" && studySet.ownerId?.name
-                        ? studySet.ownerId.name
-                        : "Unknown user",
+                ownerUsername:
+                    populatedOwner?.username
+                        ? populatedOwner.username
+                        : populatedOwner?.email
+                            ? populatedOwner.email.split("@")[0]
+                            : "Unknown user",
             },
             canEdit: isOwner,
         },

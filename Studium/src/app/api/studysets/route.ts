@@ -43,12 +43,12 @@ export async function GET(request: NextRequest) {
 
   const studySets = await StudySet.find(query)
     .populate("terms")
-    .populate({ path: "ownerId", select: "name" })
+    .populate({ path: "ownerId", select: "username email" })
     .lean();
 
-  const normalizedSets = studySets.map((set: { ownerId?: { name?: string } }) => ({
+  const normalizedSets = studySets.map((set: { ownerId?: { username?: string; email?: string } }) => ({
     ...set,
-    ownerName: set.ownerId?.name || "Unknown user",
+    ownerUsername: set.ownerId?.username || set.ownerId?.email?.split("@")[0] || "Unknown user",
   }));
 
   return NextResponse.json({ studySets: normalizedSets }, { status: 200 });

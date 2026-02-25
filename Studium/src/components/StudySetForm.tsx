@@ -13,7 +13,7 @@ export interface StudySetData {
   url: string;
   terms: Term[];
   isPublic?: boolean;
-  ownerName?: string;
+  ownerUsername?: string;
 }
 
 interface StudySetFormProps {

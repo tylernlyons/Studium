@@ -15,7 +15,7 @@ export interface StudySetProps {
     terms: Term[];
     isPublic?: boolean;
     canEdit?: boolean;
-    ownerName?: string;
+    ownerUsername?: string;
   };
 }
 
@@ -32,7 +32,7 @@ const StudySet = ({ set }: StudySetProps) => {
 <div className="text-[#1b2d48] pt-2">
       <p>Terms in set: {set.terms.length}</p>
       <p className="text-sm text-[#3f5d86]">
-        {set.isPublic !== false ? "Public" : "Private"} • by {set.ownerName || "Unknown user"}
+        {set.isPublic !== false ? "Public" : "Private"} • by {set.ownerUsername || "Unknown user"}
       </p>
 </div>
       {/* Link to study set view */}

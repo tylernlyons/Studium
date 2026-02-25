@@ -65,7 +65,7 @@ export default function ShowStudySet() {
           <div className="mt-4 space-y-2">
             <h2 className="text-xl font-semibold">{studySet.title}</h2>
             <p className="text-sm text-[#3f5d86]">
-              {studySet.isPublic !== false ? "Public set" : "Private set"} • by {studySet.ownerName || "Unknown user"}
+              {studySet.isPublic !== false ? "Public set" : "Private set"} • by {studySet.ownerUsername || "Unknown user"}
             </p>
             <ul className="space-y-1">
               {studySet.terms.map((t, i) => ( //map the terms of the study set to an unordered list
