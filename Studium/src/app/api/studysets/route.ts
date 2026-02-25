@@ -46,10 +46,17 @@ export async function GET(request: NextRequest) {
     .populate({ path: "ownerId", select: "username email" })
     .lean();
 
-  const normalizedSets = studySets.map((set: { ownerId?: { username?: string; email?: string } }) => ({
-    ...set,
-    ownerUsername: set.ownerId?.username || set.ownerId?.email?.split("@")[0] || "Unknown user",
-  }));
+  const normalizedSets = studySets.map((set) => {
+    const owner =
+      typeof set.ownerId === "object" && set.ownerId !== null
+        ? (set.ownerId as { username?: string; email?: string })
+        : undefined;
+
+    return {
+      ...set,
+      ownerUsername: owner?.username || owner?.email?.split("@")[0] || "Unknown user",
+    };
+  });
 
   return NextResponse.json({ studySets: normalizedSets }, { status: 200 });
 }
