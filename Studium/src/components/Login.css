@@ -3,10 +3,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #F3F3F3;
+    background: linear-gradient(180deg, rgba(243, 243, 243, 0.98) 0%, rgba(230, 238, 250, 0.92) 100%);
     color: #1b2d48;
     padding: 20px;  
-    width: 100%
+    width: 100%;
+    border-radius: 16px;
 }
 
 .login h1 {
@@ -19,13 +20,13 @@
     flex-direction: column;
     justify-content: center;
     gap: 16px;
-    background-color: #faf8f8fd;
+    background: linear-gradient(180deg, #faf8f8fd 0%, #eef4fffd 100%);
     border-radius: 8px;
     width: 100%;
     max-width: 400px;
     margin:auto;
     padding: 20px;
-    box-shadow: 4px 4px 150px 4px rgba(151, 151, 151, 0.25);
+    box-shadow: 0 16px 48px rgba(33, 56, 90, 0.16);
     
     }
     
@@ -37,12 +38,14 @@
         margin-top: 10px;
     }
     
-    .form-labels input {
+.form-labels input {
      display: flex;
      flex-direction: column;
     
     font-size: 16px;
     width: 100%;
+    border: 1px solid rgba(27, 45, 72, 0.18);
+    background-color: rgba(255, 255, 255, 0.92);
     
     }
     .divider {
@@ -97,7 +100,7 @@
             font-weight: bold;
         }
         
-        .signup-link:hover {
-            color: #5400b3;  
-            transition: color 0.3s;
-        }
+.signup-link:hover {
+    color: #3a6098;  
+    transition: color 0.3s;
+}

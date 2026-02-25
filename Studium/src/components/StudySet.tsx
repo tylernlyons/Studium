@@ -19,11 +19,11 @@ export interface StudySetProps {
 const StudySet = ({ set }: StudySetProps) => {
   return (
     <div className="shadow-md hover:shadow-xl rounded hover:-translate-y-1 transition duration-300 ease-in-out">
-    <Card>
+    <Card className="h-full">
       <h2 className="text-lg font-semibold text-[#1b2d48] pb-2">{set.title}</h2>
 
       {/* Display image from the study set */}
-      <div className="w-full h-68 relative ">
+      <div className="w-full h-44 relative">
         <Image src={set.url} alt={set.title} fill className="object-cover rounded-md" />
       </div>
 <div className="text-[#1b2d48] pt-2">
@@ -32,7 +32,7 @@ const StudySet = ({ set }: StudySetProps) => {
       {/* Link to study set view */}
       <Link
         href={`/show-set/${set._id}`}
-        className="mt-4 inline-block bg-[#3a6098] text-white px-4 py-2 rounded hover:bgtext-[#1b2d48]"
+        className="mt-4 inline-block app-btn-primary"
       >
         View Set
       </Link>

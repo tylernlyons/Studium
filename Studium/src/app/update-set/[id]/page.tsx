@@ -111,7 +111,7 @@ export default function UpdateStudySet() {
   };
 
   return (
-    <div className="text-white max-w-lg mx-auto mt-10 px-4">
+    <div className="app-shell text-white max-w-lg mx-auto mt-4 px-4">
       <h2 className="text-lg font-semibold mt-2 mb-2">Edit Study Set</h2>
 
       <Card className='text-[#1b2d48]'>
@@ -123,7 +123,7 @@ export default function UpdateStudySet() {
             onChange={handleChange}
             placeholder="Title"
             required
-            className="w-full p-2 border rounded"
+            className="app-input"
           />
           <input
             name="url"
@@ -132,7 +132,7 @@ export default function UpdateStudySet() {
             onChange={handleChange}
             placeholder="Image URL"
             required
-            className="w-full p-2 border rounded"
+            className="app-input"
           />
           <div className="flex gap-2 items-center">
             <input
@@ -142,14 +142,14 @@ export default function UpdateStudySet() {
               onChange={(e) =>
                 setStudySet(prev => ({ ...prev, newTerm: e.target.value }))
               }
-              className="flex-1 p-2 border rounded"
+              className="app-input flex-1"
             />
           </div>
           <button
             type="button"
             onClick={handleAddTerm}
             disabled={loading}
-            className={`px-4 py-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-[#1b2d48] hover:bg-[#3a6098]'
+            className={`${loading ? 'bg-gray-400 text-white px-4 py-2 rounded-full' : 'app-btn-primary'
               }`}
           >
             {loading ? 'Thinking...' : 'Define'}
@@ -157,7 +157,7 @@ export default function UpdateStudySet() {
 
 
           {studySet.terms.map((term, index) => (
-            <div key={index} className="flex items-center justify-between p-2 border rounded mb-2">
+            <div key={index} className="flex items-center justify-between p-3 border border-[#1b2d48]/15 rounded-lg mb-2 bg-white/60">
               <div>
                 <p className="font-semibold">{term.term}</p>
                 <p className="text-sm text-gray-600">{term.definition}</p>
@@ -174,13 +174,13 @@ export default function UpdateStudySet() {
             <Link
               href={"/focusMode"}
               onClick={onDeleteClick}
-              className="mr-4 px-6 py-2 border border-gray-500 bg-red-700 text-white  hover:bg-red-500 hover:text-white transition rounded"
+              className="mr-4 app-btn-danger"
             >
               Delete set
             </Link>
             <button
               type="submit"
-              className="bg-[#1b2d48] text-white px-4 py-2 rounded hover:bg-[#3a6098]"
+              className="app-btn-primary"
             >
               Update Study Set
             </button>

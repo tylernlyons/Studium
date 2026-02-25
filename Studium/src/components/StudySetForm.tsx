@@ -66,7 +66,7 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 bg-white rounded shadow space-y-4">
+    <form onSubmit={handleSubmit} className="app-panel p-4 space-y-4 text-[#1b2d48]">
       {/* Title input */}
       <input
         type="text"
@@ -74,7 +74,7 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
-        className="w-full p-2 border rounded"
+        className="app-input"
       />
 
       {/* Image URL input */}
@@ -83,7 +83,7 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
         placeholder="Image URL"
         value={url}
         onChange={(e) => setURL(e.target.value)}
-        className="w-full p-2 border rounded"
+        className="app-input"
       />
 
       {/* Error message */}
@@ -92,7 +92,7 @@ const StudySetForm = ({ onAddSet }: StudySetFormProps) => {
       {/* Submit button */}
       <button
         type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        className="app-btn-secondary"
       >
         Create Study Set
       </button>

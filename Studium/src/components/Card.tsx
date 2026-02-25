@@ -6,7 +6,7 @@ interface CardProps {
 // Card component
 const Card = ({ children, className = "" }: CardProps) => {
   return (
-    <div className={`border border-gray-300 shadow-sm rounded-lg p-4 bg-white ${className}`}>
+    <div className={`app-panel p-4 ${className}`}>
       {children}
     </div>
   );

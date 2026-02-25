@@ -24,15 +24,15 @@ export default function ShowStudySet() {
   }, [id]);
 
   if (!studySet) { //Shows loading, while fetching set
-    return <div className='text-center text-xl p-10'>Loading...</div>;
+    return <div className='app-shell text-center text-xl p-10 text-white'>Loading...</div>;
   }
 
   return (
-    <div className=" py-10">
+    <div className="app-shell py-10">
       <StudyTimer />
 
       <div className="max-w-5xl mx-auto px-4">
-        <Card>
+        <Card className="text-[#1b2d48]">
           <div className="w-full h-72 relative">
             {studySet.url && ( //if there's a valid image URL for the set, set it
               <Image
@@ -47,7 +47,7 @@ export default function ShowStudySet() {
 
           <div className="mt-4 space-y-2">
             <h2 className="text-xl font-semibold">{studySet.title}</h2>
-            <ul>
+            <ul className="space-y-1">
               {studySet.terms.map((t, i) => ( //map the terms of the study set to an unordered list
                 <li key={i}>
                   <strong>{t.term}</strong>: {t.definition}
@@ -55,22 +55,22 @@ export default function ShowStudySet() {
               ))}
             </ul>
 
-            <div className='flex flex-row p-3'>
+            <div className='flex flex-col sm:flex-row p-3 gap-2'>
               <Link
                 href={`/update-set/${id}`} //sends user to edit the current set
-                className="w-full mr-3 px-6 py-2 border bg-[#3c649f] border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
+                className="w-full app-btn-primary text-center"
               >
                 Edit set
               </Link>
               <Link
                 href={`/flashcard-view/${id}`} //sends user to view flashcards of current set
-                className="w-full mr-3 px-6 py-2 border bg-[#3c649f] border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
+                className="w-full app-btn-secondary text-center"
               >
                 Start flashcards
               </Link>
               <Link
                 href="/focusMode"
-                className="w-full mr-3 px-6 py-2 border bg-[#3c649f] border-gray-500 text-[#1b2d48] hover:bg-[#1b2d48] hover:text-white transition rounded text-center"
+                className="w-full app-btn-secondary text-center"
               >
                 <div>
                   Back To Set List

@@ -72,9 +72,9 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
     // If there are no terms, show a message and a button to go back
     if (shuffledTerms.length === 0) {
         return (
-            <div className="text-center p-4">
+            <div className="text-center p-4 text-white">
                 <p>No flashcards available.</p>
-                <button onClick={onBack} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
+                <button onClick={onBack} className="mt-4 app-btn-primary">
                     Back to Study Set
                 </button>
             </div>
@@ -95,12 +95,12 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
                 style={{ transformStyle: 'preserve-3d', cursor: 'pointer' }}
                 >
                 {/* Front side */}
-                <div className="absolute w-full h-full bg-white shadow-lg rounded-lg flex items-center justify-center text-xl p-4 border backface-hidden">
+                <div className="absolute w-full h-full app-panel rounded-lg flex items-center justify-center text-xl p-4 backface-hidden text-[#1b2d48]">
                     {term}
                 </div>
 
                 {/* Back side */}
-                <div className="absolute w-full h-full bg-gray-50 shadow-lg rounded-lg flex items-center justify-center text-xl p-4 border backface-hidden transform rotate-y-180">
+                <div className="absolute w-full h-full app-panel rounded-lg flex items-center justify-center text-xl p-4 backface-hidden transform rotate-y-180 text-[#1b2d48]">
                     {definition}
                 </div>
             </div>
@@ -109,31 +109,31 @@ const FlashcardViewer = ({ terms, onBack }: FlashcardProps) => {
             <div className="mt-4 flex gap-4">
                 <button 
                     onClick={flipCard} 
-                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                    className="app-btn-secondary"
                 >
                     Flip
                 </button>
                 <button
                     onClick={prevCard} 
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    className="app-btn-danger"
                 >
                     ←
                 </button>
                 <button 
                     onClick={nextCard} 
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    className="app-btn-primary"
                 >
                     →
                 </button>
                 <button 
                     onClick={shuffleCards} 
-                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                    className="app-btn-secondary"
                 > 
                     Shuffle
                 </button>
                 <button 
                     onClick={onBack} 
-                    className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                    className="app-btn-primary"
                 >
                     Back to Study Set
                 </button>

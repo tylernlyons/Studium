@@ -36,9 +36,9 @@ export default function CreateStudySet() {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 px-4">
-      <h2 className="text-lg font-semibold mt-2">Create a Study Set</h2>
-      <Card>
+    <div className="app-shell max-w-lg mx-auto mt-4 px-4">
+      <h2 className="text-xl font-semibold mt-2 mb-2 text-white">Create a Study Set</h2>
+      <Card className="text-[#1b2d48]">
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             name="title"
@@ -47,7 +47,7 @@ export default function CreateStudySet() {
             onChange={handleChange}
             placeholder="Title"
             required
-            className="w-full p-2 border rounded"
+            className="app-input"
           />
           <input
             name="url"
@@ -56,11 +56,11 @@ export default function CreateStudySet() {
             onChange={handleChange}
             placeholder="Image URL"
             required
-            className="w-full p-2 border rounded"
+            className="app-input"
           />
           <button
             type="submit"
-            className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800 mt-4"
+            className="app-btn-primary mt-2"
           >
             Add Study Set
           </button>
