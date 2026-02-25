@@ -8,10 +8,12 @@ export interface Term {
 }
 
 export interface StudySetData {
-  _id: number;
+  _id: string | number;
   title: string;
   url: string;
   terms: Term[];
+  isPublic?: boolean;
+  ownerName?: string;
 }
 
 interface StudySetFormProps {

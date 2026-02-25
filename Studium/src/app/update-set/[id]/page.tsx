@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Card from '@/components/Card';
 import CreateDefinition from '@/components/CreateDefinition';
-import Link from 'next/link';
 import HoverDefinition from '@/components/HoverDefinition';
 
 export default function UpdateStudySet() {
@@ -13,8 +12,11 @@ export default function UpdateStudySet() {
     url: '',
     terms: [] as { term: string; definition: string }[],
     newTerm: '',
+    isPublic: true,
   });
   const [loading, setLoading] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [deleteError, setDeleteError] = useState("");
 
   const router = useRouter();
   const { id } = useParams();
@@ -29,27 +31,33 @@ export default function UpdateStudySet() {
         url: data.studySet.url,
         terms: data.studySet.terms || [],
         newTerm: '',
+        isPublic: data.studySet.isPublic ?? true,
       });
     };
     fetchStudySet();
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setStudySet(prev => ({
       ...prev,
-      [name]: value,
+      [name]: name === "isPublic" ? value === "public" : value,
     }));
   };
   const onDeleteClick = async () => {
     try {
+      setDeleteError("");
       const response = await fetch(`/api/studysets/${id}`, {
         method: 'DELETE',
       });
-      if (!response.ok) throw new Error('Network response was not ok');
+      if (!response.ok) {
+        setDeleteError("Unable to delete this set.");
+        return;
+      }
       router.push('/focusMode');
     } catch (error) {
       console.log('Error in ShowItemDetails_deleteClick', error);
+      setDeleteError("Unable to delete this set.");
     }
   };
 
@@ -98,15 +106,21 @@ export default function UpdateStudySet() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch(`/api/studysets/${id}`, {
+      const res = await fetch(`/api/studysets/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(studySet),
       });
+      if (!res.ok) {
+        setSaveError("Unable to save this set. Please refresh and try again.");
+        return;
+      }
+      setSaveError("");
       router.refresh();
       router.push(`/show-set/${id}`);
     } catch (err) {
       console.error('Error updating study set:', err);
+      setSaveError("Unable to save this set. Please refresh and try again.");
     }
   };
 
@@ -134,6 +148,15 @@ export default function UpdateStudySet() {
             required
             className="app-input"
           />
+          <select
+            name="isPublic"
+            value={studySet.isPublic ? "public" : "private"}
+            onChange={handleChange}
+            className="app-input"
+          >
+            <option value="public">Public set</option>
+            <option value="private">Private set</option>
+          </select>
           <div className="flex gap-2 items-center">
             <input
               type="text"
@@ -163,6 +186,7 @@ export default function UpdateStudySet() {
                 <p className="text-sm text-gray-600">{term.definition}</p>
               </div>
               <button
+                type="button"
                 onClick={() => handleDeleteTerm(term.term)}
                 className="text-red-500 hover:text-red-700"
               >
@@ -171,13 +195,13 @@ export default function UpdateStudySet() {
             </div>
           ))}
           <div className='flex flex-row'>
-            <Link
-              href={"/focusMode"}
+            <button
+              type="button"
               onClick={onDeleteClick}
-              className="mr-4 app-btn-danger"
+              className="mr-4 app-btn-danger text-left"
             >
               Delete set
-            </Link>
+            </button>
             <button
               type="submit"
               className="app-btn-primary"
@@ -185,6 +209,8 @@ export default function UpdateStudySet() {
               Update Study Set
             </button>
           </div>
+          {saveError && <p className="text-sm text-red-600">{saveError}</p>}
+          {deleteError && <p className="text-sm text-red-600">{deleteError}</p>}
         </form>
       </Card>
       <HoverDefinition />

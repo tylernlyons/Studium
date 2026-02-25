@@ -9,6 +9,7 @@ import { StudySetProps } from '@/components/StudySet';
 
 export default function FlashcardPage() {
     const [studySet, setStudySet] = useState<StudySetProps['set'] | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const { id } = useParams();
     const router = useRouter();
   
@@ -16,11 +17,26 @@ export default function FlashcardPage() {
       if (!id) return;
       const fetchStudySet = async () => { //fetches the supplied studyset from Mongo
         const res = await fetch(`/api/studysets/${id}`);
+        if (!res.ok) {
+          setError("You don't have access to this set.");
+          return;
+        }
         const data = await res.json();
         setStudySet(data.studySet);
       };
       fetchStudySet();
     }, [id]);
+
+    if (error) {
+      return (
+        <div className='app-shell text-center text-xl p-10 text-white'>
+          <p>{error}</p>
+          <button className="app-btn-secondary mt-4" onClick={() => router.push("/focusMode")}>
+            Back to Set List
+          </button>
+        </div>
+      );
+    }
   
     if (!studySet) { //Shows loading, while fetching set
       return <div className='app-shell text-center text-xl p-10 text-white'>Loading...</div>;

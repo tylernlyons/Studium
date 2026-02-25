@@ -6,6 +6,11 @@ const CreateDefinition = async (term: string): Promise<string> => {
       body: JSON.stringify({ term }),
     });
 
+    if (!res.ok) {
+      const errorPayload = await res.json().catch(() => null);
+      return errorPayload?.error || 'Error retrieving definition.';
+    }
+
     const data = await res.json();
 
     if (data.definition) return data.definition;

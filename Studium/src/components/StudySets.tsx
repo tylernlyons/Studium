@@ -10,12 +10,13 @@ import StudyTimer from "./StudyTimer";
 
 export default function StudySetsPage() {
     const [sets, setSets] = useState<StudySetData[]>([]);
+    const [visibilityFilter, setVisibilityFilter] = useState<"all" | "public" | "private">("all");
 
     // Fetch study sets on component mount
     useEffect(() => {
         const fetchSets = async () => {
             try {
-                const response = await fetch('/api/studysets'); // Call API endpoint
+                const response = await fetch(`/api/studysets?visibility=${visibilityFilter}`); // Call API endpoint
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -26,7 +27,7 @@ export default function StudySetsPage() {
             }
         };
         fetchSets();
-    }, []);
+    }, [visibilityFilter]);
 
     return (
         
@@ -45,6 +46,32 @@ export default function StudySetsPage() {
 
                 {/* Container for study sets */}
                 <div className="max-w-5xl mx-auto mb-8 w-full">
+                    <div className="app-panel w-[100%] shadow-md mb-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-3xl font-semibold text-[#1b2d48] pt-3 px-5 pb-3">
+                            <p>Study Sets</p>
+                            <div className="flex gap-2 text-sm font-medium">
+                                <button
+                                    onClick={() => setVisibilityFilter("all")}
+                                    className={visibilityFilter === "all" ? "app-btn-primary" : "app-btn-secondary"}
+                                >
+                                    All
+                                </button>
+                                <button
+                                    onClick={() => setVisibilityFilter("public")}
+                                    className={visibilityFilter === "public" ? "app-btn-primary" : "app-btn-secondary"}
+                                >
+                                    Public
+                                </button>
+                                <button
+                                    onClick={() => setVisibilityFilter("private")}
+                                    className={visibilityFilter === "private" ? "app-btn-primary" : "app-btn-secondary"}
+                                >
+                                    Private
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* If no sets exist */}
                     {sets && sets.length === 0 ? (
                         <div className="app-panel text-[#1b2d48] p-5">
@@ -53,9 +80,6 @@ export default function StudySetsPage() {
                     ) : (
                         // Grid of sets
                         <div className="app-panel w-[100%] shadow-md">
-                            <div className="text-3xl font-semibold text-[#1b2d48] pt-3 px-5">
-                                <p>Study Sets</p>
-                            </div>
                             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-5'>
 
                                 {sets.map((set, k) => (

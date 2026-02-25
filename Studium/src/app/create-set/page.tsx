@@ -8,15 +8,16 @@ export default function CreateStudySet() {
   const [formData, setFormData] = useState({
     title: '',
     url: '',
+    isPublic: true,
   });
 
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value,
+      [name]: name === "isPublic" ? value === "public" : value,
     }));
   };
 
@@ -58,6 +59,15 @@ export default function CreateStudySet() {
             required
             className="app-input"
           />
+          <select
+            name="isPublic"
+            value={formData.isPublic ? "public" : "private"}
+            onChange={handleChange}
+            className="app-input"
+          >
+            <option value="public">Public set</option>
+            <option value="private">Private set</option>
+          </select>
           <button
             type="submit"
             className="app-btn-primary mt-2"

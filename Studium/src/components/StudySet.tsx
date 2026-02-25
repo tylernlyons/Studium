@@ -9,10 +9,13 @@ interface Term {
 
 export interface StudySetProps {
   set: {
-    _id: number;
+    _id: string | number;
     title: string;
     url: string;
     terms: Term[];
+    isPublic?: boolean;
+    canEdit?: boolean;
+    ownerName?: string;
   };
 }
 
@@ -28,6 +31,9 @@ const StudySet = ({ set }: StudySetProps) => {
       </div>
 <div className="text-[#1b2d48] pt-2">
       <p>Terms in set: {set.terms.length}</p>
+      <p className="text-sm text-[#3f5d86]">
+        {set.isPublic !== false ? "Public" : "Private"} • by {set.ownerName || "Unknown user"}
+      </p>
 </div>
       {/* Link to study set view */}
       <Link
