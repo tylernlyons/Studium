@@ -2,6 +2,7 @@ import { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "./models/userSchema";
+import connectMongoDB from "../config/mongodb";
 
 // Define an interface for the user object
 interface UserType {
@@ -34,8 +35,11 @@ export const authConfig: NextAuthConfig = {
                 if (!credentials) return null;
 
                 try {
+                    await connectMongoDB();
+                    const normalizedEmail = (credentials.email as string).trim().toLowerCase();
+
                     // Find user in database by email
-                    const user = await User.findOne({ email: credentials.email }).lean() as unknown as UserType;
+                    const user = await User.findOne({ email: normalizedEmail }).lean() as unknown as UserType;
 
                     if (user) {
                         // Compare hashed password in DB with input password

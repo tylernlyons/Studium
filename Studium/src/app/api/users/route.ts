@@ -7,10 +7,11 @@ import bcrypt from "bcryptjs";
 
 export const POST = async (request: NextRequest) => {
   const { name, email, password } = await request.json();
+  const normalizedEmail = (email as string).trim().toLowerCase();
 
 
   await connectMongoDB();
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ email: normalizedEmail });
 
   if (existingUser) {
     return NextResponse.json(
@@ -22,7 +23,7 @@ export const POST = async (request: NextRequest) => {
   const newUser = {
     name,
     password: hashedPassword,
-    email
+    email: normalizedEmail
   }
   try {
     await User.create(newUser);
